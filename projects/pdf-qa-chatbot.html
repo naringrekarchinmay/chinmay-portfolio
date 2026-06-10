@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Q&amp;A Chatbot with RAG — Chinmay Naringrekar</title>
+<meta name="description" content="A complete Retrieval-Augmented Generation pipeline: PDF ingestion, chunking with overlap, embeddings, FAISS vector search, and context-injected LLM answers grounded in the document.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div style="background:#000">
+  <div class="wrap"><p class="breadcrumb dark-hero-wrap"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; PDF Q&A Chatbot with RAG</p></div>
+</div>
+
+<section class="p-hero dark-hero">
+  <div class="wrap">
+    <p class="eyebrow">Generative AI · Retrieval-Augmented Generation</p>
+    <h1 class="display">PDF Q&A Chatbot with RAG</h1>
+    <p class="lede">Upload a PDF, ask questions in plain English, get answers grounded strictly in the document — a complete end-to-end RAG pipeline built from first principles.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/pdf-qa-chatbot-genai" target="_blank" rel="noopener">GitHub Repo</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Large language models don't inherently know what's inside your private documents. Retrieval-Augmented Generation fixes that — and this project was built to understand exactly how, by implementing every stage of the pipeline by hand.</p>
+<p>A user uploads a PDF and asks natural-language questions. Behind the scenes, the document is extracted and split into overlapping chunks, each chunk is embedded into a vector, FAISS finds the most relevant chunks for the question, and those chunks are injected into the LLM prompt so the answer is grounded in the actual document content rather than hallucinated.</p>
+<p>Built as part of a generative AI learning journey, it's a clear, minimal reference implementation of how modern document-QA systems work under the hood — the same architecture that powers enterprise knowledge assistants.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid cols-2">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📄</div><h4>PDF ingestion</h4><p>Text extraction from uploaded PDFs prepares raw document content for processing.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">✂️</div><h4>Chunking with overlap</h4><p>Documents are split into overlapping chunks so context isn't lost at chunk boundaries.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔢</div><h4>Embeddings + FAISS</h4><p>Each chunk becomes a vector; FAISS performs fast similarity search to retrieve the most relevant passages.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">💬</div><h4>Grounded answers</h4><p>Retrieved context is injected into the prompt, so the LLM answers from the document — not from imagination.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Extract</h4><p>Pull text from the uploaded PDF.</p></div></div>
+<div class="step reveal"><div class="step-num">02</div><div><h4>Chunk</h4><p>Split the text into overlapping segments sized for retrieval.</p></div></div>
+<div class="step reveal"><div class="step-num">03</div><div><h4>Embed & index</h4><p>Generate embeddings for every chunk and store them in a FAISS vector index.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Retrieve</h4><p>Embed the user's question and find the most similar document chunks.</p></div></div>
+<div class="step reveal"><div class="step-num">05</div><div><h4>Generate</h4><p>Compose a context-injected prompt and let the LLM produce an answer grounded in the retrieved passages.</p></div></div></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>Architecture</dt><dd>End-to-end Retrieval-Augmented Generation (RAG)</dd></div>
+<div class="spec-row"><dt>Vector store</dt><dd>FAISS similarity search</dd></div>
+<div class="spec-row"><dt>Orchestration</dt><dd>LangChain with OpenAI models</dd></div>
+<div class="spec-row"><dt>Interface</dt><dd>Streamlit chat application</dd></div>
+<div class="spec-row"><dt>Design goal</dt><dd>No hallucination — answers strictly grounded in uploaded document content</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">Python</span>
+<span class="chip">LangChain</span>
+<span class="chip">OpenAI</span>
+<span class="chip">FAISS</span>
+<span class="chip">Embeddings</span>
+<span class="chip">Streamlit</span>
+<span class="chip">RAG</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/pdf-qa-chatbot-genai" target="_blank" rel="noopener">GitHub Repo</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="kdrama-recommender.html"><span class="label">&larr; Previous</span><span class="title">K-Drama Analytics & Recommender</span></a>
+      <a class="next" href="breast-cancer-decision-tree.html"><span class="label">Next &rarr;</span><span class="title">Breast Cancer Decision Tree Classifier</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COVID-19 SQL Exploration — Chinmay Naringrekar</title>
+<meta name="description" content="SQL Server exploration of global COVID-19 data — death percentage, infection rates, continent rollups, and vaccination analysis feeding the Tableau dashboard.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; COVID-19 SQL Exploration</p></div>
+</div>
+
+<section class="p-hero">
+  <div class="wrap">
+    <p class="eyebrow">Data Analysis · SQL</p>
+    <h1 class="display">COVID-19 SQL Exploration</h1>
+    <p class="lede">The SQL behind the dashboard: joins, window functions, CTEs, and temp tables used to explore global COVID-19 data in SQL Server.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/covid%20portfolio%20project%20Data%20Exploration.sql" target="_blank" rel="noopener">View SQL file on GitHub</a>
+      <a class="btn btn-ghost" href="covid-dashboard.html">See the resulting dashboard</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Before any chart existed, this project lived in SQL. Using SQL Server, global COVID-19 case, death, and vaccination data was explored question by question: What's the likelihood of death by country? What share of each population was infected? How do continents compare? How does rolling vaccination coverage evolve?</p>
+<p>The query file demonstrates practical analytical SQL — joins across cases and vaccinations tables, window functions for rolling totals, CTEs and temp tables for layered calculations, and views created to feed visualization downstream. Those outputs became the COVID-19 Tableau dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid cols-2">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🔗</div><h4>Multi-table joins</h4><p>Combining case/death data with vaccination data by location and date.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🪟</div><h4>Window functions</h4><p>Rolling vaccination counts partitioned by country.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧱</div><h4>CTEs & temp tables</h4><p>Layered calculations like percent-of-population vaccinated.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">📤</div><h4>Views for BI</h4><p>Result sets persisted as views to power Tableau.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>Tool</dt><dd>Microsoft SQL Server</dd></div>
+<div class="spec-row"><dt>Techniques</dt><dd>Joins, aggregations, window functions, CTEs, temp tables, views</dd></div>
+<div class="spec-row"><dt>Output</dt><dd>Curated datasets behind the COVID-19 Tableau dashboard</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">SQL Server</span>
+<span class="chip">T-SQL</span>
+<span class="chip">Window Functions</span>
+<span class="chip">CTEs</span>
+<span class="chip">Data Exploration</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/covid%20portfolio%20project%20Data%20Exploration.sql" target="_blank" rel="noopener">View SQL file on GitHub</a>
+      <a class="btn btn-ghost" href="covid-dashboard.html">See the resulting dashboard</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="covid-dashboard.html"><span class="label">&larr; Previous</span><span class="title">COVID-19 Global Dashboard</span></a>
+      <a class="next" href="bike-buyers.html"><span class="label">Next &rarr;</span><span class="title">Bike Buyers Excel Dashboard</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

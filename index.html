@@ -1,874 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chinmay Naringrekar | Data Analytics & Machine Learning Portfolio</title>
-  <meta name="description" content="Portfolio of Chinmay Naringrekar — Data Analyst specializing in transit analytics, machine learning, forecasting, dashboards, and decision support." />
-  <style>
-    :root {
-      --bg: #f7f9fc;
-      --card: #ffffff;
-      --text: #172033;
-      --muted: #5f6f89;
-      --primary: #2167bc;
-      --primary-dark: #174d8c;
-      --accent: #e6d36f;
-      --border: #e1e7f0;
-      --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
-      --radius: 22px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, rgba(33, 103, 188, 0.12), transparent 34%), var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(16px);
-      background: rgba(247, 249, 252, 0.82);
-      border-bottom: 1px solid rgba(225, 231, 240, 0.75);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-    }
-
-    .logo {
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      font-size: 1.15rem;
-    }
-
-    .logo span {
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-size: 0.95rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .hero {
-      padding: 92px 0 58px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 42px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.75);
-      color: var(--primary-dark);
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(230, 211, 111, 0.25);
-    }
-
-    h1 {
-      font-size: clamp(2.45rem, 7vw, 5.2rem);
-      line-height: 0.98;
-      letter-spacing: -0.075em;
-      margin-bottom: 24px;
-    }
-
-    .hero p {
-      font-size: 1.18rem;
-      color: var(--muted);
-      max-width: 720px;
-      margin-bottom: 30px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 34px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      border: 1px solid transparent;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 10px 24px rgba(33, 103, 188, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: white;
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 720px;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 1.4rem;
-      letter-spacing: -0.04em;
-    }
-
-    .stat-card span {
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .profile-card {
-      background: linear-gradient(145deg, #ffffff, #edf4ff);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .profile-photo {
-      width: 118px;
-      height: 118px;
-      border-radius: 32px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: grid;
-      place-items: center;
-      color: white;
-      font-size: 2.4rem;
-      font-weight: 900;
-      margin-bottom: 22px;
-    }
-
-    .profile-card h2 {
-      font-size: 1.45rem;
-      margin-bottom: 8px;
-      letter-spacing: -0.035em;
-    }
-
-    .profile-card p {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .tag {
-      padding: 7px 11px;
-      background: rgba(33, 103, 188, 0.09);
-      color: var(--primary-dark);
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    section {
-      padding: 62px 0;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 26px;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      line-height: 1.05;
-      letter-spacing: -0.06em;
-    }
-
-    .section-header p {
-      color: var(--muted);
-      max-width: 560px;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 12px 32px rgba(23, 32, 51, 0.06);
-      transition: 0.22s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .project-visual {
-      min-height: 150px;
-      background: linear-gradient(135deg, rgba(33, 103, 188, 0.95), rgba(230, 211, 111, 0.9));
-      display: flex;
-      align-items: end;
-      padding: 20px;
-      color: white;
-      font-weight: 900;
-      font-size: 1.25rem;
-      letter-spacing: -0.04em;
-    }
-
-    .project-content {
-      padding: 22px;
-    }
-
-    .project-content h3 {
-      font-size: 1.22rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.035em;
-    }
-
-    .project-content p {
-      color: var(--muted);
-      margin-bottom: 18px;
-      font-size: 0.96rem;
-    }
-
-    .project-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .project-links a {
-      font-weight: 800;
-      color: var(--primary);
-      font-size: 0.92rem;
-    }
-
-    .skills-layout {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .skill-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-    }
-
-    .skill-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .skill-card p {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .about-card {
-      background: var(--text);
-      color: white;
-      border-radius: calc(var(--radius) + 8px);
-      padding: 38px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: center;
-      box-shadow: var(--shadow);
-    }
-
-    .about-card h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.08;
-      letter-spacing: -0.06em;
-      margin-bottom: 16px;
-    }
-
-    .about-card p {
-      color: #d5deec;
-      margin-bottom: 18px;
-    }
-
-    .about-list {
-      list-style: none;
-      display: grid;
-      gap: 12px;
-    }
-
-    .about-list li {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 14px 16px;
-      color: #edf4ff;
-    }
-
-    .contact-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: calc(var(--radius) + 8px);
-      padding: 34px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .contact-card h2 {
-      font-size: clamp(1.9rem, 4vw, 3.2rem);
-      letter-spacing: -0.065em;
-      line-height: 1.05;
-      margin-bottom: 14px;
-    }
-
-    .contact-card p {
-      color: var(--muted);
-      max-width: 680px;
-      margin: 0 auto 24px;
-    }
-
-    footer {
-      padding: 34px 0;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid,
-      .about-card {
-        grid-template-columns: 1fr;
-      }
-
-      .projects-grid,
-      .skills-layout {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .container {
-        width: min(100% - 28px, 1120px);
-      }
-
-      .nav-inner {
-        align-items: flex-start;
-        gap: 14px;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-        gap: 14px;
-      }
-
-      .hero {
-        padding-top: 58px;
-      }
-
-      .stats,
-      .projects-grid,
-      .skills-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .section-header {
-        display: block;
-      }
-
-      .section-header h2 {
-        margin-bottom: 10px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chinmay Naringrekar — Data Analytics, Machine Learning &amp; PhD Research</title>
+<meta name="description" content="Portfolio of Chinmay Naringrekar — PhD student in Information Systems Engineering Management and transit analytics professional. Machine learning, forecasting, explainable AI, and business intelligence.">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container nav-inner">
-      <a href="#" class="logo">Chinmay<span>.</span></a>
-      <div class="nav-links">
-        <a href="#projects">ML Projects</a>
-        <a href="#dashboards">Dashboards</a>
-        <a href="#skills">Skills</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">ML Projects</a></li>
+      <li><a href="index.html#dashboards">Dashboards</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow accent reveal in">Data Analytics · Machine Learning · PhD Researcher</p>
+    <h1 class="display reveal in">Turning operational data<br>into reliable decisions.</h1>
+    <p class="lede reveal in">I'm Chinmay Naringrekar — a PhD student in Information Systems Engineering Management and a transit analytics professional at the MTA. I build forecasting models, explainable AI, and dashboards that connect data science with real-world operations.</p>
+    <div class="btn-row reveal in">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/chinmay-naringrekar" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay" target="_blank" rel="noopener">GitHub</a>
     </div>
-  </nav>
-
-  <main>
-    <header class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">Data Analytics • Machine Learning • Transit Operations</div>
-          <h1>Turning operational data into reliable decisions.</h1>
-          <p>
-            I’m Chinmay Naringrekar, a data analyst at MTA focused on transit reliability, forecasting, dashboards, and machine learning projects that connect analytics with real-world operations.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">View Projects</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a>
-            <a class="btn btn-secondary" href="https://github.com/naringrekarchinmay">GitHub</a>
-          </div>
-          <div class="stats">
-            <div class="stat-card">
-              <strong>4+ yrs</strong>
-              <span>Analytics experience</span>
-            </div>
-            <div class="stat-card">
-              <strong>ML + BI</strong>
-              <span>Python, SQL, Power BI</span>
-            </div>
-            <div class="stat-card">
-              <strong>MTA</strong>
-              <span>Transit operations analytics</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="profile-card">
-          <div class="profile-photo">CN</div>
-          <h2>Assistant Transit Management Analyst II</h2>
-          <p>
-            Building dashboards, forecasting models, and decision-support tools for reliability, performance, and maintenance planning.
-          </p>
-          <div class="tag-list">
-            <span class="tag">SQL</span>
-            <span class="tag">Python</span>
-            <span class="tag">Power BI</span>
-            <span class="tag">Tableau</span>
-            <span class="tag">Machine Learning</span>
-            <span class="tag">Streamlit</span>
-          </div>
-        </aside>
-      </div>
-    </header>
-
-    <section id="projects">
-      <div class="container">
-        <div class="section-header">
-          <h2>Machine Learning Projects</h2>
-          <p>Selected work combining real-world data, forecasting, recommendation systems, generative AI, and explainable analytics.</p>
-        </div>
-
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-visual">OTP Forecasting</div>
-            <div class="project-content">
-              <h3>[WIP]Staten Island OTP Forecasting</h3>
-              <p>
-                End-to-end machine learning project using MTA open data to forecast on-time performance, compare models, and explain predictions using SHAP.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Python</span>
-                <span class="tag">XGBoost</span>
-                <span class="tag">SHAP</span>
-                <span class="tag">Streamlit</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">GitHub Repo →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">F1 Strategy ML</div>
-            <div class="project-content">
-              <h3>[WIP]F1 Pit Strategy and tyre degradation ML Project</h3>
-              <p>
-                Formula 1 race analytics and machine learning project using FastF1 to analyze Monaco 2025 race pace, tyre degradation, and lap-time prediction.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Python</span>
-                <span class="tag">FastF1</span>
-                <span class="tag">Pandas</span>
-                <span class="tag">Race Analytics</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/naringrekarchinmay/f1-pit-strategy-ml" target="_blank" rel="noopener">GitHub Repo →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">K-Drama Recommender</div>
-            <div class="project-content">
-              <h3>K-Drama Analytics & Recommendation System</h3>
-              <p>
-                Personalized recommendation and analytics app built from drama metadata and personal ratings to analyze taste profile and suggest new shows.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Python</span>
-                <span class="tag">Pandas</span>
-                <span class="tag">NLP</span>
-                <span class="tag">Streamlit</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/naringrekarchinmay/kdrama-analytics-recommendation-system" target="_blank" rel="noopener">GitHub Repo →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">PDF QA Chatbot</div>
-            <div class="project-content">
-              <h3>PDF QA Chatbot with RAG</h3>
-              <p>
-                Generative AI app that lets users ask questions about uploaded PDFs using document chunking, embeddings, FAISS similarity search, and LLM responses.
-              </p>
-              <div class="tag-list">
-                <span class="tag">LangChain</span>
-                <span class="tag">FAISS</span>
-                <span class="tag">OpenAI</span>
-                <span class="tag">RAG</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/naringrekarchinmay/pdf-qa-chatbot-genai" target="_blank" rel="noopener">GitHub Repo →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Decision Tree</div>
-            <div class="project-content">
-              <h3>Breast Cancer Decision Tree Model</h3>
-              <p>
-                Machine learning assignment using cell nuclei features to train, test, evaluate, and visualize a decision tree classification model.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Scikit-learn</span>
-                <span class="tag">Classification</span>
-                <span class="tag">Confusion Matrix</span>
-                <span class="tag">Model Evaluation</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/naringrekarchinmay/breast-cancer-decision-tree-classification">GitHub Repo →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Healthcare ML</div>
-            <div class="project-content">
-              <h3>Disease Progression ML Project</h3>
-              <p>
-                Planned healthcare analytics project focused on disease progression, multimorbidity patterns, risk prediction, and clinical decision-support storytelling.
-              </p>
-              <div class="tag-list">
-                <span class="tag">ML</span>
-                <span class="tag">EHR Data</span>
-                <span class="tag">Classification</span>
-                <span class="tag">Explainability</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="#contact">Coming Soon →</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="dashboards">
-      <div class="container">
-        <div class="section-header">
-          <h2>Dashboards</h2>
-          <p> business intelligence and visualization projects from my earlier portfolio, including Tableau and Excel dashboard work.</p>
-        </div>
-
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-visual">Seattle Airbnb</div>
-            <div class="project-content">
-              <h3>Seattle Airbnb Tableau Dashboard</h3>
-              <p>
-                Tableau dashboard analyzing Seattle Airbnb listings to understand rental patterns, pricing factors, and strategy for optimizing short-term rental decisions.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Tableau</span>
-                <span class="tag">Airbnb</span>
-                <span class="tag">Pricing Analysis</span>
-                <span class="tag">BI</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://public.tableau.com/views/Seattleairbnbdashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Dashboard Page →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Netflix</div>
-            <div class="project-content">
-              <h3>Netflix Tableau Dashboard</h3>
-              <p>
-                Interactive Tableau dashboard exploring Netflix titles by type, country, rating, genre, release year, and detailed movie/TV show information.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Tableau</span>
-                <span class="tag">Entertainment Data</span>
-                <span class="tag">Maps</span>
-                <span class="tag">Visual Analytics</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://public.tableau.com/views/Netflixdashboardbychinmay/Netflix?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Dashboard Page →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Spotify</div>
-            <div class="project-content">
-              <h3>Spotify Top Tracks Dashboard</h3>
-              <p>
-                Dashboard analyzing Spotify top tracks using song attributes such as key, acousticness, instrumentalness, danceability, valence, energy, and streams.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Tableau</span>
-                <span class="tag">Music Data</span>
-                <span class="tag">Trend Analysis</span>
-                <span class="tag">Dashboard</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://public.tableau.com/views/spotifytoptracks2023dashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Dashboard Page →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">COVID-19</div>
-            <div class="project-content">
-              <h3>COVID-19 Tableau Dashboard</h3>
-              <p>
-                Tableau dashboard built after SQL exploration of global COVID-19 data, showing death percentage, infection rates, continent-level death counts, and projected trends.
-              </p>
-              <div class="tag-list">
-                <span class="tag">SQL Server</span>
-                <span class="tag">Tableau</span>
-                <span class="tag">Public Health</span>
-                <span class="tag">Forecast View</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://public.tableau.com/views/Coviddashboard_16690723565520/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Dashboard Page →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">COVID-19</div>
-            <div class="project-content">
-              <h3>COVID-19 SQL EDA</h3>
-              <p>
-                  SQL exploration of global COVID-19 data, showing death percentage, infection rates, continent-level death counts, and projected trends.
-              </p>
-              <div class="tag-list">
-                <span class="tag">SQL Server</span>
-                <span class="tag">Tableau</span>
-                <span class="tag">Public Health</span>
-                <span class="tag">Forecast View</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/covid%20portfolio%20project%20Data%20Exploration.sql" target="_blank" rel="noopener">SQL File →</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Bike Buyers</div>
-            <div class="project-content">
-              <h3>Bike Buyers Excel Dashboard</h3>
-              <p>
-                Excel dashboard using cleaned customer data to identify factors influencing bike purchases, with interactive filters and business-focused visual summaries.
-              </p>
-              <div class="tag-list">
-                <span class="tag">Excel</span>
-                <span class="tag">Dashboard</span>
-                <span class="tag">Data Cleaning</span>
-                <span class="tag">Customer Analysis</span>
-              </div>
-              <br />
-              <div class="project-links">
-                <a href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/Bikes%20project%20dashboard.xlsx" target="_blank" rel="noopener">Excel File →</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills">
-      <div class="container">
-        <div class="section-header">
-          <h2>Skills</h2>
-          <p>A mix of analytics, machine learning, business intelligence, and operational reporting tools.</p>
-        </div>
-
-        <div class="skills-layout">
-          <div class="skill-card">
-            <h3>Data Analysis</h3>
-            <p>Excel, SQL, Python, pandas, exploratory analysis, KPI tracking, and operational reporting.</p>
-          </div>
-          <div class="skill-card">
-            <h3>Machine Learning</h3>
-            <p>Regression, classification, model evaluation, forecasting, XGBoost, scikit-learn, and SHAP.</p>
-          </div>
-          <div class="skill-card">
-            <h3>Dashboards</h3>
-            <p>Power BI, Tableau, Streamlit, executive dashboards, monthly reports, and performance visuals.</p>
-          </div>
-          <div class="skill-card">
-            <h3>Data Systems</h3>
-            <p>SQL Server, Oracle, Trino, AWS S3, Redshift, Athena, and data pipeline organization.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container">
-        <div class="about-card">
-          <div>
-            <h2>Analytics built for real-world operations.</h2>
-            <p>
-              My work focuses on converting messy operational data into clear insights, dashboards, forecasts, and decision-support tools. I’m especially interested in reliability analytics, predictive maintenance, and explainable machine learning.
-            </p>
-            <p>
-              I’m currently expanding my portfolio with projects that connect business intelligence, machine learning, and practical operational decision-making.
-            </p>
-          </div>
-          <ul class="about-list">
-            <li>Transit reliability and performance analytics</li>
-            <li>Forecasting and explainable machine learning</li>
-            <li>Dashboard development for leadership and operations</li>
-            <li>Data storytelling with measurable business impact</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="contact-card">
-          <h2>Let’s connect.</h2>
-          <p>
-            I’m interested in analytics, machine learning, business intelligence, and decision-support projects — especially where data can improve operational performance and reliability.
-          </p>
-          <div class="hero-actions" style="justify-content: center; margin-bottom: 0;">
-            <a class="btn btn-primary" href="mailto:naringrekarchinmay@gmail.com">Email Me</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/chinmay-naringrekar" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="btn btn-secondary" href="https://github.com/naringrekarchinmay" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      © 2026 Chinmay Naringrekar. Built with HTML, CSS, and GitHub Pages.
+    <div class="hero-meta reveal in">
+      <div><strong>PhD</strong><span>Information Systems<br>Engineering Management</span></div>
+      <div><strong>2&times; Masters</strong><span>Information Systems<br>Information Technology</span></div>
+      <div><strong>4 yrs 10 mo</strong><span>Analytics experience<br>MTA · New York</span></div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<section class="section gray" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Machine Learning</p>
+      <h2 class="headline">Projects with a point of view.</h2>
+      <p class="lede">Forecasting, recommendation systems, generative AI, and explainable analytics — each one built end to end, each with its own deep-dive page.</p>
+    </div>
+    <div class="tile-grid">
+      
+<article class="tile span tint-otp  reveal">
+  <div class="tile-art" aria-hidden="true">🚆</div><span class="badge wip">Work in progress</span>
+  <p class="eyebrow">Transit Analytics</p>
+  <h3>OTP Forecasting</h3>
+  <p>Explainable XGBoost forecasting of Staten Island Railway on-time performance with SHAP, recursive multi-month forecasts, and operational risk scoring — built on MTA Open Data.</p>
+  <div class="tile-links">
+    <a href="projects/staten-island-otp.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile tint-f1 tile-dark reveal">
+  <div class="tile-art" aria-hidden="true">🏎️</div><span class="badge wip">Work in progress</span>
+  <p class="eyebrow">Race Analytics</p>
+  <h3>F1 Strategy ML</h3>
+  <p>FastF1-powered analysis of Monaco 2025: race pace, tyre degradation by compound and stint, and a Random Forest lap-time model (R² 0.974) served through a 6-page Streamlit dashboard.</p>
+  <div class="tile-links">
+    <a href="projects/f1-pit-strategy.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/f1-pit-strategy-ml" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile tint-rag tile-dark reveal">
+  <div class="tile-art" aria-hidden="true">📄</div>
+  <p class="eyebrow">Retrieval-Augmented Generation</p>
+  <h3>PDF QA Chatbot</h3>
+  <p>A complete Retrieval-Augmented Generation pipeline: PDF ingestion, chunking with overlap, embeddings, FAISS vector search, and context-injected LLM answers grounded in the document.</p>
+  <div class="tile-links">
+    <a href="projects/pdf-qa-chatbot.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/pdf-qa-chatbot-genai" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile tint-kdrama  reveal">
+  <div class="tile-art" aria-hidden="true">🎬</div>
+  <p class="eyebrow">Recommendation Systems</p>
+  <h3>K-Drama Recommender</h3>
+  <p>Personal recommendation engine and analytics app built from drama metadata and personal ratings — taste profiling, NLP-based similarity, and a multi-page Streamlit experience.</p>
+  <div class="tile-links">
+    <a href="projects/kdrama-recommender.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/kdrama-analytics-recommendation-system" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile tint-cancer  reveal">
+  <div class="tile-art" aria-hidden="true">🌳</div>
+  <p class="eyebrow">Classification</p>
+  <h3>Decision Tree</h3>
+  <p>Decision-tree classification of tumors from cell-nuclei measurements, with a complete train/test/evaluate workflow: confusion matrix, performance metrics, and full tree visualization.</p>
+  <div class="tile-links">
+    <a href="projects/breast-cancer-decision-tree.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/breast-cancer-decision-tree-classification" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile span tint-health  reveal">
+  <div class="tile-art" aria-hidden="true">🩺</div><span class="badge ">Coming soon</span>
+  <p class="eyebrow">Planned</p>
+  <h3>Healthcare ML</h3>
+  <p>Planned project on disease progression, multimorbidity patterns, risk prediction, and clinical decision-support storytelling — connecting PhD research interests with applied, explainable ML.</p>
+  <div class="tile-links">
+    <a href="projects/disease-progression.html">Learn more</a>
+    
+  </div>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dashboards">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Business Intelligence</p>
+      <h2 class="headline">Dashboards built to be used.</h2>
+      <p class="lede">Tableau, SQL, and Excel work — from public-health analytics to market analysis. Tableau dashboards are embedded live on their project pages.</p>
+    </div>
+    <div class="tile-grid">
+      
+<article class="tile span tint-f1 tile-dark reveal">
+  <div class="tile-art" aria-hidden="true">🌐</div>
+  <p class="eyebrow">SQL + Tableau</p>
+  <h3>COVID-19 Dashboard</h3>
+  <p>Tableau dashboard built on SQL-explored global COVID-19 data: death percentage, infection rates, continent-level death counts, and projected trends.</p>
+  <div class="tile-links">
+    <a href="projects/covid-dashboard.html">Learn more</a>
+    <a href="https://public.tableau.com/views/Coviddashboard_16690723565520/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+  </div>
+</article>
+      
+<article class="tile   reveal">
+  <div class="tile-art" aria-hidden="true">🏠</div>
+  <p class="eyebrow">Tableau</p>
+  <h3>Seattle Airbnb</h3>
+  <p>Tableau analysis of Seattle Airbnb listings: rental patterns, pricing factors, and data-driven strategy for short-term rental decisions.</p>
+  <div class="tile-links">
+    <a href="projects/seattle-airbnb.html">Learn more</a>
+    <a href="https://public.tableau.com/views/Seattleairbnbdashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+  </div>
+</article>
+      
+<article class="tile tint-rag tile-dark reveal">
+  <div class="tile-art" aria-hidden="true">🍿</div>
+  <p class="eyebrow">Tableau</p>
+  <h3>Netflix</h3>
+  <p>Interactive Tableau dashboard exploring Netflix titles by type, country, rating, genre, and release year, with drill-down to individual title details.</p>
+  <div class="tile-links">
+    <a href="projects/netflix.html">Learn more</a>
+    <a href="https://public.tableau.com/views/Netflixdashboardbychinmay/Netflix?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+  </div>
+</article>
+      
+<article class="tile tint-cancer  reveal">
+  <div class="tile-art" aria-hidden="true">🎧</div>
+  <p class="eyebrow">Tableau</p>
+  <h3>Spotify</h3>
+  <p>Dashboard analyzing Spotify top tracks through audio attributes — key, acousticness, instrumentalness, danceability, valence, energy — against streaming numbers.</p>
+  <div class="tile-links">
+    <a href="projects/spotify.html">Learn more</a>
+    <a href="https://public.tableau.com/views/spotifytoptracks2023dashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+  </div>
+</article>
+      
+<article class="tile tint-otp  reveal">
+  <div class="tile-art" aria-hidden="true">🗄️</div>
+  <p class="eyebrow">SQL</p>
+  <h3>COVID-19 SQL EDA</h3>
+  <p>SQL Server exploration of global COVID-19 data — death percentage, infection rates, continent rollups, and vaccination analysis feeding the Tableau dashboard.</p>
+  <div class="tile-links">
+    <a href="projects/covid-sql-eda.html">Learn more</a>
+    <a href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/covid%20portfolio%20project%20Data%20Exploration.sql" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+      
+<article class="tile span tint-kdrama  reveal">
+  <div class="tile-art" aria-hidden="true">🚲</div>
+  <p class="eyebrow">Excel</p>
+  <h3>Bike Buyers</h3>
+  <p>Excel dashboard built from cleaned customer data, identifying the factors that influence bike purchases — with pivot-driven visuals and interactive slicers.</p>
+  <div class="tile-links">
+    <a href="projects/bike-buyers.html">Learn more</a>
+    <a href="https://github.com/chinmaynaringrekar/PortfolioProject/blob/main/Bikes%20project%20dashboard.xlsx" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="section gray" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Skills</p>
+      <h2 class="headline">The toolkit.</h2>
+      <p class="lede">Analytics, machine learning, business intelligence, and the data systems underneath them.</p>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card reveal"><h4>Data Analysis</h4><p>Excel, SQL, Python, pandas, exploratory analysis, KPI tracking, and operational reporting.</p></div>
+      <div class="skill-card reveal"><h4>Machine Learning</h4><p>Regression, classification, forecasting, model evaluation, XGBoost, scikit-learn, and SHAP explainability.</p></div>
+      <div class="skill-card reveal"><h4>Dashboards</h4><p>Power BI, Tableau, Streamlit, executive dashboards, monthly reports, and performance visuals.</p></div>
+      <div class="skill-card reveal"><h4>Data Systems</h4><p>SQL Server, Oracle, Trino, AWS S3, Redshift, Athena, and data pipeline organization.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="headline">Research mindset.<br>Operational instincts.</h2>
+        <p class="lede">I work where analytics meets real operations. As an Assistant Transit Management Analyst II at the MTA, I've spent nearly five years turning messy operational data into forecasts, dashboards, and decision-support tools that leadership actually uses.</p>
+        <p class="lede" style="margin-top:18px">Now, as a PhD student in Information Systems Engineering Management, I'm pushing the same questions further: how should organizations design information systems and analytics so the right decision is the easy one? My research interests center on reliability analytics, predictive maintenance, explainable machine learning, and decision-support systems.</p>
+      </div>
+      <ul class="cred-list reveal">
+        <li><strong>PhD — Information Systems Engineering Management</strong><span>In progress</span></li>
+        <li><strong>M.S. — Information Systems</strong><span>Graduate degree</span></li>
+        <li><strong>M.S. — Information Technology</strong><span>Graduate degree</span></li>
+        <li><strong>Assistant Transit Management Analyst II — MTA</strong><span>4 years 10 months in analytics · New York</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap reveal">
+    <p class="eyebrow accent">Contact</p>
+    <h2 class="headline">Let's connect.</h2>
+    <p class="lede" style="max-width:640px;margin:16px auto 0">I'm interested in analytics, machine learning, research collaboration, and decision-support projects — especially where data can improve operational performance and reliability.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="mailto:naringrekarchinmay@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/chinmay-naringrekar" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="js/main.js"></script>
 </body>
 </html>

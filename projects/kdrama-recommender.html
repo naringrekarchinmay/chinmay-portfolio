@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Drama Analytics &amp; Recommender — Chinmay Naringrekar</title>
+<meta name="description" content="Personal recommendation engine and analytics app built from drama metadata and personal ratings — taste profiling, NLP-based similarity, and a multi-page Streamlit experience.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; K-Drama Analytics & Recommender</p></div>
+</div>
+
+<section class="p-hero">
+  <div class="wrap">
+    <p class="eyebrow">Machine Learning · Recommendation Systems</p>
+    <h1 class="display">K-Drama Analytics & Recommender</h1>
+    <p class="lede">A personalized recommendation and analytics app built from drama metadata and my own ratings — it learns my taste profile, then suggests what to watch next.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/kdrama-analytics-recommendation-system" target="_blank" rel="noopener">GitHub Repo</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Streaming platforms recommend what's popular. This project recommends what I would actually like — by learning from a dataset of K-drama metadata combined with my own personal ratings.</p>
+<p>The system analyzes my taste profile across genres, themes, and attributes, then uses NLP techniques on drama metadata to compute similarity and surface personalized suggestions for unwatched shows. The whole experience is packaged as a multi-page Streamlit app with analytics views alongside the recommender.</p>
+<p>It's a compact, end-to-end demonstration of the core ideas behind content-based recommendation: representing items as features, modeling user preference from rating history, and ranking candidates by fit.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid cols-2">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🎭</div><h4>Taste profiling</h4><p>Analytics on my rating history reveal which genres, tones, and attributes consistently score highest.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔤</div><h4>NLP-based similarity</h4><p>Drama metadata is converted into text features so similar shows can be found by content, not just by genre tags.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">⭐</div><h4>Personalized ranking</h4><p>Unwatched dramas are scored against the learned taste profile and ranked into a watch-next list.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🖥️</div><h4>Multi-page Streamlit app</h4><p>Separate pages for analytics, exploration, and recommendations, complete with poster artwork handling.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Build the dataset</h4><p>Combine drama metadata with a personal ratings file to create a labeled preference dataset.</p></div></div>
+<div class="step reveal"><div class="step-num">02</div><div><h4>Explore the taste profile</h4><p>Analyze ratings across genres and attributes to understand what actually drives a high score.</p></div></div>
+<div class="step reveal"><div class="step-num">03</div><div><h4>Vectorize content</h4><p>Apply NLP feature extraction to drama descriptions and metadata for content-based similarity.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Recommend & present</h4><p>Score and rank unwatched titles, then surface results in an interactive Streamlit app.</p></div></div></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>Approach</dt><dd>Content-based recommendation from metadata + personal ratings</dd></div>
+<div class="spec-row"><dt>Techniques</dt><dd>NLP feature extraction, similarity scoring, preference modeling</dd></div>
+<div class="spec-row"><dt>Interface</dt><dd>Multi-page Streamlit application</dd></div>
+<div class="spec-row"><dt>Why it matters</dt><dd>A self-contained demonstration of recommender-system fundamentals on a dataset I genuinely care about</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">Python</span>
+<span class="chip">Pandas</span>
+<span class="chip">NLP</span>
+<span class="chip">Scikit-learn</span>
+<span class="chip">Streamlit</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/kdrama-analytics-recommendation-system" target="_blank" rel="noopener">GitHub Repo</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="f1-pit-strategy.html"><span class="label">&larr; Previous</span><span class="title">F1 Pit Strategy & Tyre Degradation</span></a>
+      <a class="next" href="pdf-qa-chatbot.html"><span class="label">Next &rarr;</span><span class="title">PDF Q&A Chatbot with RAG</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

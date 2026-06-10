@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COVID-19 Global Dashboard — Chinmay Naringrekar</title>
+<meta name="description" content="Tableau dashboard built on SQL-explored global COVID-19 data: death percentage, infection rates, continent-level death counts, and projected trends.">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div style="background:#000">
+  <div class="wrap"><p class="breadcrumb dark-hero-wrap"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; COVID-19 Global Dashboard</p></div>
+</div>
+
+<section class="p-hero dark-hero">
+  <div class="wrap">
+    <p class="eyebrow">Business Intelligence · SQL + Tableau</p>
+    <h1 class="display">COVID-19 Global Dashboard</h1>
+    <p class="lede">From SQL exploration to executive dashboard: global death percentages, infection rates, continent-level comparisons, and projected trends.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://public.tableau.com/views/Coviddashboard_16690723565520/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+      <a class="btn btn-ghost" href="covid-sql-eda.html">View the SQL behind it</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>This dashboard is the visualization layer of a two-part project. The analysis began in SQL Server, where global COVID-19 data was explored, aggregated, and shaped; the curated outputs were then brought into Tableau as a public-health overview.</p>
+<p>The dashboard presents global death percentage, percent of population infected by country, continent-level death counts, and a forecast view projecting infection trends — the kind of layered view that takes a reader from headline numbers to geographic detail.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid cols-2">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🌐</div><h4>Global headline KPIs</h4><p>Total cases, deaths, and global death percentage at a glance.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🗺️</div><h4>Infection-rate map</h4><p>Percent of population infected, mapped by country.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🌍</div><h4>Continent comparison</h4><p>Death counts compared across continents.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">📉</div><h4>Forecast view</h4><p>Projected infection trends for key countries.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Explore in SQL</h4><p>Aggregate and shape global COVID-19 data in SQL Server — see the companion SQL EDA project.</p></div></div>
+<div class="step reveal"><div class="step-num">02</div><div><h4>Curate views</h4><p>Build the specific result sets the dashboard needs.</p></div></div>
+<div class="step reveal"><div class="step-num">03</div><div><h4>Visualize</h4><p>Design the Tableau dashboard with KPIs, map, comparisons, and forecast.</p></div></div></div>
+  </div>
+</section>
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Live dashboard</p>
+      <h2 class="headline">Explore it right here.</h2>
+    </div>
+    <div class="viz-frame reveal">
+      <iframe src="https://public.tableau.com/views/Coviddashboard_16690723565520/Dashboard1?:showVizHome=no&:embed=true&:toolbar=yes" title="COVID-19 Global Dashboard — interactive Tableau dashboard" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <p class="viz-note">Embedded from Tableau Public. Best experienced on a larger screen — or open it full-size with the button above.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>Pipeline</dt><dd>SQL Server exploration → Tableau visualization</dd></div>
+<div class="spec-row"><dt>Domain</dt><dd>Public health analytics</dd></div>
+<div class="spec-row"><dt>Companion project</dt><dd>COVID-19 SQL EDA (full query file on GitHub)</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">SQL Server</span>
+<span class="chip">Tableau</span>
+<span class="chip">Public Health</span>
+<span class="chip">Forecasting</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://public.tableau.com/views/Coviddashboard_16690723565520/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener">Open in Tableau Public</a>
+      <a class="btn btn-ghost" href="covid-sql-eda.html">View the SQL behind it</a>
+      
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="spotify.html"><span class="label">&larr; Previous</span><span class="title">Spotify Top Tracks Dashboard</span></a>
+      <a class="next" href="covid-sql-eda.html"><span class="label">Next &rarr;</span><span class="title">COVID-19 SQL Exploration</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>
