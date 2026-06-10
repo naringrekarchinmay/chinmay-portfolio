@@ -31,7 +31,7 @@
   <div class="wrap">
     <p class="eyebrow">Generative AI · Retrieval-Augmented Generation</p>
     <h1 class="display">PDF Q&A Chatbot with RAG</h1>
-    <p class="lede">Upload a PDF, ask questions in plain English, get answers grounded strictly in the document — a complete end-to-end RAG pipeline built from first principles.</p>
+    <p class="lede">Upload a PDF, ask questions in plain English, get answers grounded strictly in the document. A complete end-to-end RAG pipeline built from first principles.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/pdf-qa-chatbot-genai" target="_blank" rel="noopener">GitHub Repo</a>
       
@@ -42,7 +42,7 @@
 <section class="section">
   <div class="wrap-narrow">
     <div class="prose reveal">
-      <p>Large language models don't inherently know what's inside your private documents. Retrieval-Augmented Generation fixes that — and this project was built to understand exactly how, by implementing every stage of the pipeline by hand.</p>
+      <p>Large language models don't inherently know what's inside your private documents. Retrieval-Augmented Generation fixes that and this project was built to understand exactly how, by implementing every stage of the pipeline by hand.</p>
 <p>A user uploads a PDF and asks natural-language questions. Behind the scenes, the document is extracted and split into overlapping chunks, each chunk is embedded into a vector, FAISS finds the most relevant chunks for the question, and those chunks are injected into the LLM prompt so the answer is grounded in the actual document content rather than hallucinated.</p>
 <p>Built as part of a generative AI learning journey, it's a clear, minimal reference implementation of how modern document-QA systems work under the hood — the same architecture that powers enterprise knowledge assistants.</p>
     </div>
@@ -88,7 +88,7 @@
 <div class="spec-row"><dt>Vector store</dt><dd>FAISS similarity search</dd></div>
 <div class="spec-row"><dt>Orchestration</dt><dd>LangChain with OpenAI models</dd></div>
 <div class="spec-row"><dt>Interface</dt><dd>Streamlit chat application</dd></div>
-<div class="spec-row"><dt>Design goal</dt><dd>No hallucination — answers strictly grounded in uploaded document content</dd></div>
+<div class="spec-row"><dt>Design goal</dt><dd>No hallucination, answers strictly grounded in uploaded document content</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>
