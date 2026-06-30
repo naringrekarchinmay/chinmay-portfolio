@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F1 Pit Strategy &amp; Tyre Degradation — Chinmay Naringrekar</title>
-<meta name="description" content="FastF1-powered analysis of Monaco 2025: race pace, tyre degradation by compound and stint, and a Random Forest lap-time model (R² 0.974) served through a 6-page Streamlit dashboard.">
+<title>F1 Pit Strategy ML: 2025 Season — Chinmay Naringrekar</title>
+<meta name="description" content="A FastF1 pit-strategy pipeline covering the full 2025 F1 season: 24 races, leakage-safe features, race-aware validation, and a pit-prediction model behind a 5-page Streamlit dashboard.">
 <meta name="color-scheme" content="dark light">
 <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../css/style.css">
@@ -26,14 +26,14 @@
 </header>
 
 <div class="p-hero-bar">
-  <div class="wrap"><p class="breadcrumb dark-hero-wrap"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; F1 Pit Strategy & Tyre Degradation</p></div>
+  <div class="wrap"><p class="breadcrumb dark-hero-wrap"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; F1 Pit Strategy ML: 2025 Season</p></div>
 </div>
 
 <section class="p-hero dark-hero">
   <div class="wrap">
     <span class="badge wip">Work in progress</span><br><p class="eyebrow">Machine Learning · Race Analytics</p>
-    <h1 class="display">F1 Pit Strategy & Tyre Degradation</h1>
-    <p class="lede">Can machine learning predict Formula 1 lap times? A race-analytics deep dive into the 2025 Monaco Grand Prix using FastF1 race pace, tyre degradation, and a lap-time model accurate to ~0.62 seconds.</p>
+    <h1 class="display">F1 Pit Strategy ML: 2025 Season</h1>
+    <p class="lede">Can we predict whether a driver will pit in the next 3 laps, using only what's known up to the current lap? This pipeline tests that question against every race in the 2025 F1 season using FastF1 data.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/f1-pit-strategy-ml" target="_blank" rel="noopener">GitHub Repo</a>
       
@@ -44,9 +44,9 @@
 <section class="section">
   <div class="wrap-narrow">
     <div class="prose reveal">
-      <p>Monaco is the most strategy-sensitive circuit on the calendar. Overtaking is nearly impossible, so lap time, tyre life, track position, pit timing, and traffic decide the race. That makes it the perfect testbed for a question: can machine learning predict race lap times from driver, tyre, and race-context features?</p>
-<p>Using FastF1 data from the 2025 Monaco Grand Prix, this project cleans lap-level race data, analyzes pace by driver and compound, estimates tyre degradation on green-flag laps, engineers a full ML feature set, and trains competing regression models the best of which predicts lap times within about 0.62 seconds on average.</p>
-<p>Everything is explorable in a six-page Streamlit dashboard, from race overview through an interactive lap-time predictor. The long-term goal is a multi-race strategy analytics system that can reason about pit windows and degradation across circuits.</p>
+      <p>Pit strategy is one of the biggest levers a team controls during a race, and timing is most of it. When a driver comes in depends on tyre degradation, stint length, track position, and whether a safety car or VSC window just opened up. This project started small, as a Monaco 2025 lap-time case study, and grew from there into a pipeline that can run on any track: can a model predict, using only what's known up to the current lap, whether a driver is about to pit in the next three laps?</p>
+<p>It now runs across all 24 races of the 2025 season, roughly 26,700 laps, 21 drivers, and 10 teams. The pipeline standardizes lap data into one schema, builds leakage-safe features only (race progress, stint, tyre life, pit history that only looks backward, track status), and trains classification models. Validation is race-aware: it uses <code>GroupShuffleSplit</code> to hold entire races out of training instead of just shuffling rows, since shuffling would let the model peek at laps from the same race it's being tested on.</p>
+<p>The dashboard has five pages: project overview, track explorer, strategy comparison, model predictions, and explainability, all wrapped in a dark liquid-glass theme. The original Monaco lap-time notebooks and model are still there too, sitting alongside the newer full-season pipeline.</p>
     </div>
   </div>
 </section>
@@ -58,12 +58,12 @@
       <h2 class="headline">What it does.</h2>
     </div>
     <div class="feature-grid">
-      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🏁</div><h4>Race overview</h4><p>Monaco 2025 dataset summary: average pace by driver and tyre compound usage across the field.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">⏱️</div><h4>Driver pace comparison</h4><p>Interactive lap-by-lap comparison of any set of drivers across the full race distance.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🛞</div><h4>Tyre degradation analysis</h4><p>Tyre life vs. lap time on green-flag laps, broken down by compound, driver, and stint hard tyres showed the clearest degradation trend.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🤖</div><h4>Model performance</h4><p>Actual vs. predicted lap times, error distributions, and a three-model comparison table.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔢</div><h4>Lap-time predictor</h4><p>Manual-input interface that estimates a lap time from driver, team, compound, tyre age, stint, lap number, and recent pace.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧹</div><h4>Careful data hygiene</h4><p>Pit laps, yellow flags, and VSC periods are flagged and filtered so degradation estimates aren't distorted by abnormal laps.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🏁</div><h4>Project overview</h4><p>Season summary across 24 races: lap counts, drivers, teams, and pit-stop rates at a glance.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🗺️</div><h4>Track explorer</h4><p>Per-circuit pace, stint, and tyre-compound breakdowns for any track in the 2025 calendar.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔁</div><h4>Strategy comparison</h4><p>Pit-stop counts and stint lengths side by side across tracks. Australia averages about 4.8 stops per driver; Singapore stints run closer to 28.6 laps.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🤖</div><h4>Pit-prediction model</h4><p>Logistic Regression, Random Forest, and Gradient Boosting compared on <code>will_pit_next_3_laps</code>, validated with race-aware GroupShuffleSplit.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔍</div><h4>Explainability</h4><p>Permutation importance and SHAP both point to race-progress features as the strongest signals: lap percentage, lap number, and stint.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧹</div><h4>Leakage-safe features</h4><p>Pit history only looks backward, and track-status flags are filtered the same way, so the model can't see information from the future.</p></div>
     </div>
   </div>
 </section>
@@ -74,24 +74,24 @@
       <p class="eyebrow accent">Approach</p>
       <h2 class="headline">How it was built.</h2>
     </div>
-    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data collection</h4><p>Pull the full 2025 Monaco GP race session with FastF1 laps, weather, and results.</p></div></div>
-<div class="step reveal"><div class="step-num">02</div><div><h4>Cleaning & EDA</h4><p>Convert lap times to seconds, flag pit and abnormal laps, and chart race pace, compound usage, and driver consistency.</p></div></div>
-<div class="step reveal"><div class="step-num">03</div><div><h4>Tyre degradation</h4><p>Estimate degradation from the tyre-life vs. lap-time relationship on green-flag laps only.</p></div></div>
-<div class="step reveal"><div class="step-num">04</div><div><h4>Feature engineering</h4><p>Build features like race progress, tyre life (and its square), stint progress, driver/team median pace, previous lap, and rolling 3- and 5-lap averages.</p></div></div>
-<div class="step reveal"><div class="step-num">05</div><div><h4>Model training</h4><p>Compare Linear Regression, Random Forest, and Gradient Boosting on lap-time prediction.</p></div></div>
-<div class="step reveal"><div class="step-num">06</div><div><h4>Dashboard</h4><p>Serve the trained Random Forest through a six-page Streamlit app, including a live-style lap-time predictor.</p></div></div></div>
+    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data collection</h4><p>Pull lap timing, tyre/stint, pit, track-status, and weather data for every 2025 race via FastF1, resolved to an exact calendar round.</p></div></div>
+<div class="step reveal"><div class="step-num">02</div><div><h4>Standardization</h4><p>Combine per-race laps into a single 29-column schema, then build the combined all-tracks dataset (24 races, ~26,700 laps).</p></div></div>
+<div class="step reveal"><div class="step-num">03</div><div><h4>Feature engineering</h4><p>Build only leakage-safe features: race progress, position, tyre/stint, pit history that only looks backward, and track-status flags.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Race-aware modeling</h4><p>Train Logistic Regression, Random Forest, and Gradient Boosting on <code>will_pit_next_3_laps</code>, validated with GroupShuffleSplit so entire races are held out.</p></div></div>
+<div class="step reveal"><div class="step-num">05</div><div><h4>Analysis & explainability</h4><p>Compare pit-stop counts and stint lengths across tracks, then rank features by permutation importance and SHAP.</p></div></div>
+<div class="step reveal"><div class="step-num">06</div><div><h4>Dashboard</h4><p>Serve everything through a five-page Streamlit dashboard with a dark liquid-glass theme that degrades gracefully if an artifact is missing.</p></div></div></div>
   </div>
 </section>
 <section class="section gray">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow accent">Results</p>
-      <h2 class="headline">Lap-time prediction, Monaco 2025 (test set)</h2>
+      <h2 class="headline">Pit-prediction, 2025 season (held-out races)</h2>
     </div>
     <div class="reveal" style="overflow-x:auto">
-      <table class="result-table"><thead><tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R²</th><th>MAPE</th></tr></thead><tbody><tr class="highlight"><td>Random Forest</td><td>0.624</td><td>0.953</td><td>0.974</td><td>0.786</td></tr><tr class=""><td>Gradient Boosting</td><td>0.674</td><td>1.034</td><td>0.969</td><td>0.844</td></tr><tr class=""><td>Linear Regression</td><td>2.260</td><td>3.815</td><td>0.575</td><td>2.724</td></tr></tbody></table>
+      <table class="result-table"><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr></thead><tbody><tr class="highlight"><td>Logistic Regression</td><td>0.72</td><td>0.16</td><td>0.50</td><td>0.24</td><td>0.70</td></tr><tr class=""><td>Random Forest</td><td>0.90</td><td>0.25</td><td>0.07</td><td>0.11</td><td>0.69</td></tr><tr class=""><td>Gradient Boosting</td><td>0.89</td><td>0.22</td><td>0.07</td><td>0.11</td><td>0.72</td></tr></tbody></table>
     </div>
-    <p class="viz-note reveal" style="max-width:720px;margin:18px auto 0">Honest caveat from the repo: this first version uses a random train/test split within a single race, so results may be optimistic. The planned next step is training on multiple races and testing on an unseen one.</p>
+    <p class="viz-note reveal" style="max-width:720px;margin:18px auto 0">One caveat worth stating plainly: the pit-stop target is imbalanced, only about 8.5% of laps are positive, so the tree models' high accuracy mostly just reflects the majority class. F1 and recall tell the truer story. These are modest baselines validated on races the models never saw during training, and the problem is far from solved.</p>
   </div>
 </section>
 <section class="section">
@@ -101,13 +101,13 @@
       <h2 class="headline">Project details.</h2>
     </div>
     <dl class="spec reveal">
-      <div class="spec-row"><dt>Data source</dt><dd>FastF1 2025 Monaco Grand Prix race session</dd></div>
-<div class="spec-row"><dt>Problem type</dt><dd>Lap-time regression with race-context features</dd></div>
-<div class="spec-row"><dt>Best model</dt><dd>Random Forest Regressor ~0.62 s mean absolute error</dd></div>
-<div class="spec-row"><dt>Key features</dt><dd>Race progress, lap number, previous lap time, pit-lap status, stint progress, track status</dd></div>
-<div class="spec-row"><dt>Interface</dt><dd>Six-page Streamlit dashboard</dd></div>
-<div class="spec-row"><dt>Roadmap</dt><dd>Multi-race datasets, weather features, cross-race validation, and a pit-strategy recommendation model</dd></div>
-<div class="spec-row"><dt>Status</dt><dd>Active work in progress</dd></div>
+      <div class="spec-row"><dt>Data source</dt><dd>FastF1, 2025 F1 season: 24 races, about 26,700 laps, 21 drivers, 10 teams</dd></div>
+<div class="spec-row"><dt>Problem type</dt><dd>Binary classification: will a driver pit within the next 3 laps</dd></div>
+<div class="spec-row"><dt>Best model</dt><dd>Logistic Regression, with the best F1 (0.24) and ROC-AUC (0.70) on held-out races</dd></div>
+<div class="spec-row"><dt>Key features</dt><dd>Lap percentage, lap number, stint, pit-stop count so far, total laps, track-status flags</dd></div>
+<div class="spec-row"><dt>Interface</dt><dd>Five-page Streamlit dashboard with a dark liquid-glass theme</dd></div>
+<div class="spec-row"><dt>Roadmap</dt><dd>Weather features, cross-season validation, calibrated probabilities for the imbalanced target, per-track models, and a pit-window recommendation layer</dd></div>
+<div class="spec-row"><dt>Status</dt><dd>Work in progress. These are exploratory baselines, not strategy software.</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>
@@ -115,6 +115,7 @@
 <span class="chip">Pandas</span>
 <span class="chip">NumPy</span>
 <span class="chip">Scikit-learn</span>
+<span class="chip">SHAP</span>
 <span class="chip">Matplotlib</span>
 <span class="chip">Plotly</span>
 <span class="chip">Streamlit</span>
