@@ -433,6 +433,20 @@ html[data-theme="dark"] .badge.wip,
 .tile.tint-cancer { --tint: 52, 199, 130; }
 .tile.tint-health { --tint: 158, 122, 255; }
 
+/* F1 project page -> red accent in place of the site-wide blue, matching the tint-f1 glow above */
+body.page-f1 {
+  --blue: #cc1f2d;
+  --blue-hover: #e8333f;
+  --accent: #cc1f2d;
+  --accent-soft: rgba(204, 31, 45, 0.14);
+}
+html[data-theme="dark"] body.page-f1 {
+  --blue: #e8333f;
+  --blue-hover: #ff6873;
+  --accent: #ff4e5a;
+  --accent-soft: rgba(255, 78, 90, 0.18);
+}
+
 /* ---------- Skills ---------- */
 .skill-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .skill-card {
