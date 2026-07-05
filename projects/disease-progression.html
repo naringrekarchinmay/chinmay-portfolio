@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disease Progression ML — Chinmay Naringrekar</title>
-<meta name="description" content="Planned project on disease progression, multimorbidity patterns, risk prediction, and clinical decision-support storytelling — connecting PhD research interests with applied, explainable ML.">
+<title>Disease Progression &amp; Multimorbidity Prediction — Chinmay Naringrekar</title>
+<meta name="description" content="Machine learning on synthetic EHR data that predicts hospitalization, ICU admission, 30-day readmission, and multimorbidity progression, with a strict temporal cutoff to prevent leakage, SHAP explainability, and a Streamlit dashboard.">
 <meta name="color-scheme" content="dark light">
 <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../css/style.css">
@@ -26,17 +26,17 @@
 </header>
 
 <div>
-  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; Disease Progression ML</p></div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; Disease Progression &amp; Multimorbidity Prediction</p></div>
 </div>
 
 <section class="p-hero">
   <div class="wrap">
-    <span class="badge ">Coming soon</span><br><p class="eyebrow">Healthcare Analytics · Planned</p>
-    <h1 class="display">Disease Progression ML</h1>
-    <p class="lede">A planned healthcare analytics project on disease progression, multimorbidity patterns, and explainable risk prediction — bridging my PhD research interests with applied machine learning.</p>
+    <span class="badge wip">Work in progress</span><br><p class="eyebrow">Healthcare Analytics · Machine Learning</p>
+    <h1 class="display">Disease Progression &amp; Multimorbidity Prediction</h1>
+    <p class="lede">A leakage-aware machine learning pipeline that predicts hospitalization, ICU admission, 30-day readmission, and multimorbidity progression from longitudinal EHR-style data, with explainability built in from the start.</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
-      
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
+
     </div>
   </div>
 </section>
@@ -44,9 +44,9 @@
 <section class="section">
   <div class="wrap-narrow">
     <div class="prose reveal">
-      <p>The next major project in this portfolio moves into healthcare analytics: modeling how diseases progress over time, how conditions cluster into multimorbidity patterns, and how risk can be predicted early enough to matter.</p>
-<p>The emphasis will be on explainability and decision-support storytelling, the same philosophy behind my transit work. A risk score nobody can interpret doesn't change a clinical decision; a transparent one might.</p>
-<p>This project connects directly to my doctoral research in information systems engineering management, where decision-support systems and applied analytics meet real operational and clinical environments.</p>
+      <p>Can a patient's demographics, baseline diagnoses, lab history, medications, and prior hospitalizations predict what happens to them next? This project puts that question to the test on synthetic electronic health records spanning 2018–2024, built from five linked tables: patients, diagnoses, lab results, medications, and outcomes.</p>
+<p>The most important design choice is a strict temporal cutoff. Predictors are built only from events on or before December 31, 2021; outcomes are measured from 2022 through 2024. Patient-level diagnosis flags are deliberately excluded, and baseline conditions are rebuilt from dated diagnosis events before the cutoff, so the model can't peek at the future it is asked to predict.</p>
+<p>The philosophy is the same as my transit work: explainability and decision-support storytelling. A risk score nobody can interpret doesn't change a clinical decision; a transparent one might. It connects directly to my doctoral research in information systems engineering management, where decision-support systems meet real operational and clinical environments.</p>
     </div>
   </div>
 </section>
@@ -57,11 +57,13 @@
       <p class="eyebrow accent">Highlights</p>
       <h2 class="headline">What it does.</h2>
     </div>
-    <div class="feature-grid cols-2">
-      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧬</div><h4>Disease progression modeling</h4><p>Tracking how conditions evolve over time in longitudinal health data.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔗</div><h4>Multimorbidity patterns</h4><p>Identifying how chronic conditions cluster and interact.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">⚠️</div><h4>Risk prediction</h4><p>Classification models for early identification of high-risk patients.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔍</div><h4>Explainability first</h4><p>SHAP-style transparency so predictions can support not replace clinical judgment.</p></div>
+    <div class="feature-grid">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🏥</div><h4>Hospitalization risk</h4><p>Predicts which patients will be hospitalized in the 2022–2024 outcome window from their pre-2022 history.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🚨</div><h4>ICU admission risk</h4><p>Estimates each patient's risk of an ICU admission during the outcome window.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔁</div><h4>30-day readmission</h4><p>Models the risk of readmission within 30 days, a core hospital quality and cost metric.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧬</div><h4>Multimorbidity progression</h4><p>Among patients with fewer than two baseline conditions, predicts who progresses into multimorbidity.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">⏳</div><h4>Leakage-aware design</h4><p>A strict temporal cutoff separates predictors (through 2021) from outcomes (2022–2024), the same split a deployed model would face.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧠</div><h4>Explainability first</h4><p>Feature importance and SHAP analysis expose the drivers behind every risk score, so predictions can support clinical judgment instead of replacing it.</p></div>
     </div>
   </div>
 </section>
@@ -72,10 +74,12 @@
       <p class="eyebrow accent">Approach</p>
       <h2 class="headline">How it was built.</h2>
     </div>
-    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Scope & data</h4><p>Identify suitable EHR-style datasets and define the progression and risk questions.</p></div></div>
-<div class="step reveal"><div class="step-num">02</div><div><h4>Model</h4><p>Build classification and progression models with rigorous validation.</p></div></div>
-<div class="step reveal"><div class="step-num">03</div><div><h4>Explain</h4><p>Layer explainability on top of every prediction.</p></div></div>
-<div class="step reveal"><div class="step-num">04</div><div><h4>Tell the story</h4><p>Package the findings as decision-support narratives, not just metrics.</p></div></div></div>
+    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data loading &amp; cleaning</h4><p>Ingest the five raw EHR tables, audit coverage and quality, and standardize them for analysis.</p></div></div>
+<div class="step reveal"><div class="step-num">02</div><div><h4>Patient profiles &amp; multimorbidity EDA</h4><p>Explore patient demographics, condition prevalence, and how chronic conditions cluster and co-occur.</p></div></div>
+<div class="step reveal"><div class="step-num">03</div><div><h4>Feature engineering</h4><p>Build baseline features from dated pre-cutoff events: demographics, baseline conditions, lab history, medication history, and prior hospitalization patterns.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Baseline models</h4><p>Establish simple, honest reference models for each prediction target before reaching for anything fancier.</p></div></div>
+<div class="step reveal"><div class="step-num">05</div><div><h4>Progression prediction models</h4><p>Train gradient-boosted models (XGBoost, LightGBM) for hospitalization, ICU, readmission, and multimorbidity progression.</p></div></div>
+<div class="step reveal"><div class="step-num">06</div><div><h4>Evaluate, explain &amp; deliver</h4><p>Compare models across multiple metrics, layer SHAP explainability on top, and surface everything in a Streamlit dashboard.</p></div></div></div>
   </div>
 </section>
 <section class="section">
@@ -85,16 +89,25 @@
       <h2 class="headline">Project details.</h2>
     </div>
     <dl class="spec reveal">
-      <div class="spec-row"><dt>Status</dt><dd>Planned, currently in scoping</dd></div>
-<div class="spec-row"><dt>Focus areas</dt><dd>Disease progression, multimorbidity, risk prediction, explainable ML</dd></div>
-<div class="spec-row"><dt>Connection</dt><dd>Aligned with PhD research in information systems engineering management</dd></div>
+      <div class="spec-row"><dt>Data source</dt><dd>Synthetic EHR data (2018–2024): patients, diagnoses, lab results, medications, outcomes</dd></div>
+<div class="spec-row"><dt>Problem type</dt><dd>Multi-target risk prediction (classification) with progression modeling</dd></div>
+<div class="spec-row"><dt>Prediction targets</dt><dd>Hospitalization · ICU admission · 30-day readmission · multimorbidity progression (2022–2024)</dd></div>
+<div class="spec-row"><dt>Temporal design</dt><dd>Predictors from events on or before Dec 31, 2021; outcomes measured Jan 1, 2022 to Dec 31, 2024</dd></div>
+<div class="spec-row"><dt>Pipeline</dt><dd>Ten ordered notebooks from data loading through EDA, feature engineering, modeling, evaluation, and SHAP explainability</dd></div>
+<div class="spec-row"><dt>Interface</dt><dd>Streamlit dashboard summarizing the processed dataset, model metrics, and generated figures</dd></div>
+<div class="spec-row"><dt>Status</dt><dd>Active work in progress - modeling and evaluation are still evolving</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
-      <span class="chip">Machine Learning</span>
-<span class="chip">EHR Data</span>
-<span class="chip">Classification</span>
-<span class="chip">Explainability</span>
-<span class="chip">Decision Support</span>
+      <span class="chip">Python</span>
+<span class="chip">Pandas</span>
+<span class="chip">NumPy</span>
+<span class="chip">Scikit-learn</span>
+<span class="chip">XGBoost</span>
+<span class="chip">LightGBM</span>
+<span class="chip">SHAP</span>
+<span class="chip">Lifelines</span>
+<span class="chip">Streamlit</span>
+<span class="chip">Jupyter</span>
     </div>
   </div>
 </section>
@@ -104,8 +117,8 @@
     <h2 class="headline">Want the full story?</h2>
     <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="../index.html#contact">Get in touch</a>
-      
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
+
     </div>
   </div>
 </section>
