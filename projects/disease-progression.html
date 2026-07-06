@@ -82,6 +82,28 @@
 <div class="step reveal"><div class="step-num">06</div><div><h4>Evaluate, explain &amp; deliver</h4><p>Compare models across multiple metrics, layer SHAP explainability on top, and surface everything in a Streamlit dashboard.</p></div></div></div>
   </div>
 </section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Results</p>
+      <h2 class="headline">How it performs.</h2>
+      <p class="lede">Held-out test set of 100,000 synthetic patients. Class imbalance makes some targets far harder than others.</p>
+    </div>
+    <table class="result-table reveal">
+      <thead>
+        <tr><th>Target</th><th>Best model</th><th>ROC-AUC</th><th>Recall</th><th>F1</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Multimorbidity progression <span class="check">&#10003;</span></td><td>XGBoost</td><td>0.87</td><td>0.87</td><td>0.77</td></tr>
+        <tr><td>Future hospitalization</td><td>XGBoost</td><td>0.69</td><td>0.68</td><td>0.13</td></tr>
+        <tr><td>ICU admission · 30-day readmission</td><td colspan="4">Too rare in this dataset to model reliably (0.1% and 0.7% prevalence)</td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note reveal">All models are scored against a majority-class dummy baseline (ROC-AUC 0.5). Hospitalization affects only 4.5% of patients, so the model trades precision to catch about two-thirds of true cases and roughly doubles the dummy's average precision. SHAP points to prior hospitalization count, age, and Charlson index as the top hospitalization drivers, and to medication and baseline condition counts for progression.</p>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="section-head reveal">
@@ -94,8 +116,9 @@
 <div class="spec-row"><dt>Prediction targets</dt><dd>Hospitalization · ICU admission · 30-day readmission · multimorbidity progression (2022–2024)</dd></div>
 <div class="spec-row"><dt>Temporal design</dt><dd>Predictors from events on or before Dec 31, 2021; outcomes measured Jan 1, 2022 to Dec 31, 2024</dd></div>
 <div class="spec-row"><dt>Pipeline</dt><dd>Ten ordered notebooks from data loading through EDA, feature engineering, modeling, evaluation, and SHAP explainability</dd></div>
+<div class="spec-row"><dt>Headline result</dt><dd>XGBoost predicts multimorbidity progression with ROC-AUC 0.87 and recall 0.87 on the held-out test set</dd></div>
 <div class="spec-row"><dt>Interface</dt><dd>Streamlit dashboard summarizing the processed dataset, model metrics, and generated figures</dd></div>
-<div class="spec-row"><dt>Status</dt><dd>Active work in progress - modeling and evaluation are still evolving</dd></div>
+<div class="spec-row"><dt>Status</dt><dd>Core pipeline complete through evaluation and SHAP; next up are probability calibration, survival modeling, and external validation</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>

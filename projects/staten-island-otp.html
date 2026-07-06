@@ -77,7 +77,7 @@
     <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data loading & review</h4><p>Ingest Staten Island Railway OTP data from the MTA Open Data portal and audit quality and coverage.</p></div></div>
 <div class="step reveal"><div class="step-num">02</div><div><h4>Cleaning & EDA</h4><p>Standardize the series, then explore seasonality, delay patterns, and long-run reliability trends.</p></div></div>
 <div class="step reveal"><div class="step-num">03</div><div><h4>Feature engineering</h4><p>Build time-series features: OTP and delayed-train lags, rolling averages, delay rate, year, month, quarter, season, and day-time category.</p></div></div>
-<div class="step reveal"><div class="step-num">04</div><div><h4>Model training & selection</h4><p>Benchmark Linear Regression, Random Forest, and XGBoost. The race is close: Linear Regression posts the lowest MAE, while XGBoost leads on RMSE and R&sup2; and is carried forward as the main forecasting model.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Model training & selection</h4><p>Benchmark Linear Regression, Random Forest, and XGBoost. XGBoost is selected as the main forecasting model, and the fair leakage-safe holdout later confirms the choice: it ranks first on every metric.</p></div></div>
 <div class="step reveal"><div class="step-num">05</div><div><h4>Explainability</h4><p>Apply SHAP to the final model so every forecast can answer not just “what?” but “why?”.</p></div></div>
 <div class="step reveal"><div class="step-num">06</div><div><h4>Recursive forecasting</h4><p>Project OTP 3–12 months ahead by feeding each prediction back as a lag feature, with Low / Medium / High risk scoring.</p></div></div>
 <div class="step reveal"><div class="step-num">07</div><div><h4>Baselines & validation</h4><p>Benchmark against naive, moving-average, SARIMA, and Prophet baselines, then stress-test with 5-fold chronological time-series cross-validation.</p></div></div>
@@ -94,15 +94,18 @@
     </div>
     <table class="result-table reveal">
       <thead>
-        <tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R&sup2;</th></tr>
+        <tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R&sup2;</th><th>MAPE</th></tr>
       </thead>
       <tbody>
-        <tr class="highlight"><td>XGBoost <span class="check">&#10003;</span></td><td>1.21</td><td>1.50</td><td>0.48</td></tr>
-        <tr><td>6-Month Moving Average</td><td>1.49</td><td>2.34</td><td>&minus;0.27</td></tr>
-        <tr><td>SARIMA · Prophet · Naive</td><td colspan="3">Higher error across the board</td></tr>
+        <tr class="highlight"><td>XGBoost Fair <span class="check">&#10003;</span></td><td>1.21</td><td>1.50</td><td>0.48</td><td>1.24</td></tr>
+        <tr><td>6-Month Moving Average</td><td>1.49</td><td>2.34</td><td>&minus;0.27</td><td>1.57</td></tr>
+        <tr><td>3-Month Moving Average</td><td>1.76</td><td>2.46</td><td>&minus;0.40</td><td>1.85</td></tr>
+        <tr><td>Prophet</td><td>2.31</td><td>2.64</td><td>&minus;0.61</td><td>2.41</td></tr>
+        <tr><td>SARIMA</td><td>2.34</td><td>2.78</td><td>&minus;0.78</td><td>2.44</td></tr>
+        <tr><td>Naive Baseline</td><td>2.68</td><td>3.39</td><td>&minus;1.65</td><td>2.80</td></tr>
       </tbody>
     </table>
-    <p class="viz-note reveal">Across chronological 5-fold cross-validation the model averaged MAE 2.11; the most recent fold, with the longest training history, reached MAE 1.30 and R&sup2; 0.59. Prediction intervals came in at 79.5% and 89.7% coverage against 80% and 90% targets.</p>
+    <p class="viz-note reveal">XGBoost was retrained only on data through July 2025 to keep the comparison fair, and ranked first on all four metrics. Across chronological 5-fold cross-validation it averaged MAE 2.11; the most recent fold, with the longest training history, reached MAE 1.30 and R&sup2; 0.59. Prediction intervals came in at 79.5% and 89.7% coverage against 80% and 90% targets.</p>
   </div>
 </section>
 
@@ -116,13 +119,14 @@
       <div class="spec-row"><dt>Data source</dt><dd>MTA Open Data - Staten Island Railway on-time performance (monthly, through January 2026)</dd></div>
 <div class="spec-row"><dt>Problem type</dt><dd>Time-series regression with recursive multi-step forecasting</dd></div>
 <div class="spec-row"><dt>Models compared</dt><dd>Linear Regression · Random Forest · Naive · 3- &amp; 6-month moving averages · SARIMA · Prophet · XGBoost (selected)</dd></div>
-<div class="spec-row"><dt>Model selection</dt><dd>Linear Regression scored the lowest MAE in the initial comparison; XGBoost led on RMSE and R&sup2;, so it was selected and carried through the validation phases</dd></div>
+<div class="spec-row"><dt>Model selection</dt><dd>XGBoost Fair ranked 1st on MAE, RMSE, R&sup2;, and MAPE in the leakage-safe Phase 13 holdout, trained only on data available before the test period</dd></div>
+<div class="spec-row"><dt>Deliverables</dt><dd>Final report (Markdown and PDF), presentation deck, and the six-page Streamlit dashboard</dd></div>
 <div class="spec-row"><dt>Validation</dt><dd>5-fold chronological time-series cross-validation plus a held-out Aug 2025 – Jan 2026 test window</dd></div>
 <div class="spec-row"><dt>Uncertainty</dt><dd>Residual-based prediction intervals: 79.5% / 89.7% actual coverage vs. 80% / 90% targets</dd></div>
 <div class="spec-row"><dt>Explainability</dt><dd>SHAP (SHapley Additive Explanations)</dd></div>
 <div class="spec-row"><dt>Key drivers found</dt><dd>Seasonality, delay rate, recent OTP momentum, rolling operational trends</dd></div>
 <div class="spec-row"><dt>Interface</dt><dd>Six-page Streamlit dashboard: Home, System Health, OTP Trends, AI Forecast, Scenario Lab, Research</dd></div>
-<div class="spec-row"><dt>Status</dt><dd>Phases 1–16 complete; weather features, refined risk classification, and a final research report are planned next</dd></div>
+<div class="spec-row"><dt>Status</dt><dd>Core pipeline, dashboard, final report, and presentation complete; weather features and risk-classification refinement are planned next</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>
