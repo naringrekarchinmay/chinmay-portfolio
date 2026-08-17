@@ -13,10 +13,13 @@
   --accent-soft: rgba(0, 113, 227, 0.14);
 
   /* --- Aurora hues (drive the animated backdrop the glass refracts) --- */
-  --aurora-1: 56, 132, 255;   /* blue   */
-  --aurora-2: 124, 92, 255;   /* indigo */
-  --aurora-3: 0, 199, 190;    /* teal   */
-  --aurora-4: 255, 122, 158;  /* rose   */
+  /* Signature blue -> indigo. Kept in one family so the backdrop reads calm
+     and the glass has a coherent tint to refract, not a rainbow. */
+  /* R >= G on every stop so dim regions never lean cyan/teal. */
+  --aurora-1: 96, 92, 255;    /* royal blue  */
+  --aurora-2: 108, 88, 255;   /* blue-violet */
+  --aurora-3: 126, 90, 250;   /* indigo      */
+  --aurora-4: 100, 100, 255;  /* periwinkle  */
 
   /* --- Page surface --- */
   --bg: #eef1f7;
@@ -28,8 +31,8 @@
   --hairline: rgba(15, 20, 40, 0.10);
 
   /* --- Glass material --- */
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-strong: rgba(255, 255, 255, 0.74);
   --glass-border: rgba(255, 255, 255, 0.9);
   --glass-edge: rgba(15, 20, 40, 0.08);
   --glass-blur: 22px;
@@ -72,8 +75,8 @@ html[data-theme="dark"] {
   --link: #57a8ff;
   --hairline: rgba(255, 255, 255, 0.12);
 
-  --glass-bg: rgba(28, 32, 48, 0.46);
-  --glass-bg-strong: rgba(24, 28, 44, 0.66);
+  --glass-bg: rgba(28, 32, 48, 0.55);
+  --glass-bg-strong: rgba(24, 28, 44, 0.68);
   --glass-border: rgba(255, 255, 255, 0.16);
   --glass-edge: rgba(0, 0, 0, 0.5);
   --glass-blur: 26px;
@@ -125,12 +128,12 @@ body {
 }
 .aurora::after {
   width: 55vmax; height: 55vmax; bottom: -12vmax; right: -6vmax;
-  background: radial-gradient(circle at 60% 40%, rgba(var(--aurora-2), 0.85), transparent 62%);
+  background: radial-gradient(circle at 60% 40%, rgba(var(--aurora-3), 0.85), transparent 62%);
   animation: drift-b 42s var(--ease) infinite alternate;
 }
 .aurora .blob-1 {
   width: 46vmax; height: 46vmax; top: 28%; left: 42%;
-  background: radial-gradient(circle at 50% 50%, rgba(var(--aurora-3), 0.7), transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(var(--aurora-1), 0.85), transparent 60%);
   animation: drift-c 38s var(--ease) infinite alternate;
 }
 .aurora .blob-2 {
@@ -138,13 +141,18 @@ body {
   background: radial-gradient(circle at 50% 50%, rgba(var(--aurora-4), 0.6), transparent 60%);
   animation: drift-d 48s var(--ease) infinite alternate;
 }
-html[data-theme="dark"] .aurora { filter: blur(70px) saturate(140%); }
+/* Dark mode: brighter + more saturated so the near-black page has real light
+   for the glass to refract, instead of a muddy almost-black backdrop.
+   `screen` blend adds the glows as light (physically correct on a dark field),
+   which keeps overlaps a clean blue->indigo instead of a murky transition. */
+html[data-theme="dark"] .aurora { filter: blur(72px) saturate(130%) brightness(1.04); }
 html[data-theme="dark"] .aurora::before,
 html[data-theme="dark"] .aurora::after,
-html[data-theme="dark"] .aurora .blob { opacity: 0.5; }
+html[data-theme="dark"] .aurora .blob { opacity: 0.62; mix-blend-mode: screen; }
+html:not([data-theme="dark"]) .aurora { filter: blur(64px) saturate(120%); }
 html:not([data-theme="dark"]) .aurora::before,
 html:not([data-theme="dark"]) .aurora::after,
-html:not([data-theme="dark"]) .aurora .blob { opacity: 0.42; }
+html:not([data-theme="dark"]) .aurora .blob { opacity: 0.5; }
 
 @keyframes drift-a { from { transform: translate3d(0,0,0) scale(1); }      to { transform: translate3d(8vmax,6vmax,0) scale(1.18); } }
 @keyframes drift-b { from { transform: translate3d(0,0,0) scale(1.1); }    to { transform: translate3d(-7vmax,-5vmax,0) scale(0.9); } }
@@ -161,6 +169,29 @@ html[data-theme="dark"] .grain { opacity: 0.35; }
 
 body > :where(:not(.aurora):not(.grain)) { position: relative; z-index: var(--z-base); }
 
+/* ---------- Accessibility: honor "Reduce Transparency" ----------
+   Users who enable the OS setting get opaque surfaces and no blur, the same
+   way we already respect prefers-reduced-motion. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: #f4f6fb;
+    --glass-bg-strong: #f7f9fd;
+    --menu-bg: #f4f6fb;
+  }
+  html[data-theme="dark"] {
+    --glass-bg: #14171f;
+    --glass-bg-strong: #171a23;
+    --menu-bg: #0c0e15;
+  }
+  .glass, .nav, .footer, .tile, .skill-card, .feature, .hero-meta div,
+  .cred-list li, .chip, .btn-ghost, .theme-toggle, .badge, .result-table,
+  .pager a, .nav-links {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .aurora { opacity: 0.35; }
+}
+
 img { max-width: 100%; display: block; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -173,8 +204,8 @@ a:hover { text-decoration: underline; }
 .glass {
   position: relative;
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow),
     inset 0 1px 0 var(--glass-hi),
@@ -203,8 +234,8 @@ a:hover { text-decoration: underline; }
   position: sticky; top: 0; z-index: var(--z-nav);
   height: var(--nav-h);
   background: var(--glass-bg-strong);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(150%) blur(20px);
+  backdrop-filter: saturate(150%) blur(20px);
   border-bottom: 1px solid var(--hairline);
   box-shadow: inset 0 1px 0 var(--glass-hi);
   transition: background 0.4s var(--ease), height 0.4s var(--ease), box-shadow 0.4s var(--ease);
@@ -364,8 +395,8 @@ h3.sub {
   position: relative; border-radius: var(--radius-lg); overflow: hidden;
   padding: clamp(32px, 4.5vw, 48px) clamp(26px, 4vw, 44px) clamp(36px, 5vw, 52px);
   background: var(--glass-bg); color: var(--ink);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
   display: flex; flex-direction: column; min-height: 380px;
@@ -432,6 +463,7 @@ html[data-theme="dark"] .badge.wip,
 .tile.tint-rag    { --tint: 0, 199, 190; }
 .tile.tint-cancer { --tint: 52, 199, 130; }
 .tile.tint-health { --tint: 158, 122, 255; }
+.tile.tint-ems    { --tint: 255, 111, 60; }
 
 /* F1 project page -> red accent in place of the site-wide blue, matching the tint-f1 glow above */
 body.page-f1 {
@@ -445,6 +477,20 @@ html[data-theme="dark"] body.page-f1 {
   --blue-hover: #ff6873;
   --accent: #ff4e5a;
   --accent-soft: rgba(255, 78, 90, 0.18);
+}
+
+/* EMS project page -> warm red-orange accent matching the tint-ems glow */
+body.page-ems {
+  --blue: #e5551f;
+  --blue-hover: #f26a34;
+  --accent: #d84e1c;
+  --accent-soft: rgba(255, 111, 60, 0.14);
+}
+html[data-theme="dark"] body.page-ems {
+  --blue: #f26a34;
+  --blue-hover: #ff8a5c;
+  --accent: #ff7a45;
+  --accent-soft: rgba(255, 111, 60, 0.2);
 }
 
 /* ---------- Skills ---------- */
@@ -648,7 +694,7 @@ html[data-theme="dark"] body.page-f1 {
   .nav-links {
     position: absolute; top: var(--nav-h); left: 0; right: 0;
     background: var(--menu-bg);
-    -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%); backdrop-filter: blur(28px) saturate(150%);
     flex-direction: column; gap: 0; padding: 8px 22px 18px;
     border-bottom: 1px solid var(--hairline);
     box-shadow: 0 18px 40px rgba(0,0,0,0.25);

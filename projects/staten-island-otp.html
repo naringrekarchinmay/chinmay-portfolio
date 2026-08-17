@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staten Island Railway OTP Forecasting — Chinmay Naringrekar</title>
-<meta name="description" content="Explainable XGBoost forecasting of Staten Island Railway on-time performance, benchmarked against SARIMA, Prophet, and naive baselines, with time-series cross-validation, calibrated prediction intervals, SHAP explainability, and operational risk scoring on MTA Open Data.">
+<meta name="description" content="Forecasting Staten Island Railway on-time performance from 20 years of MTA Open Data. A rolling-origin evaluation across 119 one-step forecasts puts XGBoost, SARIMA, and Prophet in a statistical tie — all ~30% better than naive baselines — with calibrated prediction intervals, SHAP, and a live six-page Streamlit dashboard.">
 <meta name="color-scheme" content="dark light">
 <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../css/style.css">
@@ -33,10 +33,10 @@
   <div class="wrap">
     <span class="badge wip">Work in progress</span><br><p class="eyebrow">Machine Learning · Transit Analytics</p>
     <h1 class="display">Staten Island Railway OTP Forecasting</h1>
-    <p class="lede">An end-to-end, explainable machine learning system that forecasts Staten Island Railway on-time performance from real MTA Open Data, validates it against statistical baselines, and says how confident each forecast should be.</p>
+    <p class="lede">An end-to-end, explainable forecasting system for Staten Island Railway on-time performance, built on 20 years of MTA Open Data. It validates its own model ranking with a rolling-origin evaluation — and finds a more honest answer than a single hold-out first suggested.</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">GitHub Repo</a>
-      
+      <a class="btn btn-primary" href="https://staten-island-otp-forecasting.streamlit.app" target="_blank" rel="noopener">Live dashboard</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">GitHub Repo</a>
     </div>
   </div>
 </section>
@@ -45,8 +45,9 @@
   <div class="wrap-narrow">
     <div class="prose reveal">
       <p>Most transit reporting looks backward: it tells you what on-time performance was. This project asks what OTP will be, why the model thinks so, and how confident it should be.</p>
-<p>Built entirely on MTA Open Data for the Staten Island Railway, the project runs through a ten-notebook pipeline: historical trend analysis, machine-learning prediction, recursive multi-month forecasting, SHAP-based explainability, and operational risk scoring. The model is benchmarked against naive, moving-average, SARIMA, and Prophet baselines and validated with chronological cross-validation. Residual-based prediction intervals give each forecast an error range, and a six-page Streamlit dashboard, styled for an executive audience, delivers the results.</p>
-<p>It connects directly to my day job in transit operations analytics: turning raw reliability data into forward-looking, decision-ready insight.</p>
+<p>Built entirely on MTA Open Data for the Staten Island Railway, the project runs through a multi-notebook pipeline: historical trend analysis, machine-learning prediction, recursive multi-month forecasting, SHAP-based explainability, and operational risk scoring. XGBoost is benchmarked against naive, moving-average, SARIMA, and Prophet baselines, residual-based prediction intervals give each forecast an error range, and a live six-page Streamlit dashboard, styled for an executive audience, delivers the results.</p>
+<p>The most interesting result is about evaluation, not the model. An initial six-month hold-out showed XGBoost beating the field by 18.7% — until five more months of data arrived and that lead evaporated. Re-run as a rolling-origin evaluation across 119 one-step-ahead forecasts, XGBoost, SARIMA, and Prophet come out statistically tied, each around 1.37–1.52 MAE and all roughly 30% better than the naive and moving-average baselines. No single sophisticated model dominates; the honest takeaway is that a short hold-out can rank models the way a longer one won't, which is exactly why rolling-origin validation matters.</p>
+<p>It connects directly to my day job in transit operations analytics: turning raw reliability data into forward-looking, decision-ready insight — and reporting it honestly.</p>
     </div>
   </div>
 </section>
@@ -59,11 +60,32 @@
     </div>
     <div class="feature-grid">
       <div class="feature reveal"><div class="f-icon" aria-hidden="true">📊</div><h4>Six-page dashboard</h4><p>Home, System Health, OTP Trends, AI Forecast, Scenario Lab, and Research pages give leadership the state of the railway at a glance.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🥊</div><h4>Baseline benchmarking</h4><p>XGBoost goes head-to-head against naive, moving-average, SARIMA, and Prophet baselines, and beats the strongest of them by about 18.7% in forecast error.</p></div>
+<div class="feature reveal"><div class="f-icon" aria-hidden="true">🥊</div><h4>Rolling-origin benchmarking</h4><p>Across 119 one-step-ahead forecasts, XGBoost, SARIMA, and Prophet land in a statistical tie (~1.37–1.52 MAE), all about 30% better than naive and moving-average baselines.</p></div>
 <div class="feature reveal"><div class="f-icon" aria-hidden="true">🔮</div><h4>Recursive forecasting</h4><p>A multi-month forecasting engine feeds each prediction back as a lag feature, projecting OTP 3–12 months ahead.</p></div>
 <div class="feature reveal"><div class="f-icon" aria-hidden="true">📏</div><h4>Calibrated uncertainty</h4><p>Residual-based prediction intervals achieve 79.5% and 89.7% actual coverage against 80% and 90% targets, so each forecast carries a calibrated error range.</p></div>
 <div class="feature reveal"><div class="f-icon" aria-hidden="true">🚦</div><h4>Operational risk scoring</h4><p>Forecasted months are classified Low / Medium / High risk (≥95%, 90–95%, <90% OTP) with a plain-language outlook message.</p></div>
 <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧠</div><h4>Explainable AI with SHAP</h4><p>SHAP values reveal the drivers behind each prediction such as seasonality, delay rate, recent OTP momentum, and rolling trends.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">The dashboard</p>
+      <h2 class="headline">See it live.</h2>
+      <p class="lede">A six-page Streamlit app — Home, System Health, OTP Trends, AI Forecast, Scenario Lab, and Research — deployed and running on Streamlit Community Cloud.</p>
+    </div>
+    <figure class="viz-frame reveal" style="background:transparent">
+      <img src="assets/otp/dashboard_home.png" alt="OTP Intelligence dashboard home page showing on-time performance KPIs: 95.49% average OTP, 4.51% delay rate, 1.52-point rolling-origin MAE, and 79.5% interval coverage." loading="lazy" width="1600" height="1000">
+    </figure>
+    <p class="viz-note reveal">Home — executive KPIs on 20 years of MTA Open Data, with the rolling-origin MAE and interval coverage surfaced up front.</p>
+    <figure class="viz-frame reveal" style="background:transparent; margin-top:32px">
+      <img src="assets/otp/dashboard_forecast.png" alt="AI Forecast page projecting six months of OTP ahead with an 80% prediction interval, an average forecast of 98.04%, and a Low/Medium/High risk breakdown table." loading="lazy" width="1600" height="1000">
+    </figure>
+    <p class="viz-note reveal">AI Forecast — recursive multi-month projection with an 80% prediction interval and Low / Medium / High risk scoring per month.</p>
+    <div class="btn-row reveal" style="justify-content:center; margin-top:32px">
+      <a class="btn btn-primary" href="https://staten-island-otp-forecasting.streamlit.app" target="_blank" rel="noopener">Open the live dashboard</a>
     </div>
   </div>
 </section>
@@ -77,11 +99,11 @@
     <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data loading & review</h4><p>Ingest Staten Island Railway OTP data from the MTA Open Data portal and audit quality and coverage.</p></div></div>
 <div class="step reveal"><div class="step-num">02</div><div><h4>Cleaning & EDA</h4><p>Standardize the series, then explore seasonality, delay patterns, and long-run reliability trends.</p></div></div>
 <div class="step reveal"><div class="step-num">03</div><div><h4>Feature engineering</h4><p>Build time-series features: OTP and delayed-train lags, rolling averages, delay rate, year, month, quarter, season, and day-time category.</p></div></div>
-<div class="step reveal"><div class="step-num">04</div><div><h4>Model training & selection</h4><p>Benchmark Linear Regression, Random Forest, and XGBoost. XGBoost is selected as the main forecasting model, and the fair leakage-safe holdout later confirms the choice: it ranks first on every metric.</p></div></div>
+<div class="step reveal"><div class="step-num">04</div><div><h4>Model training & selection</h4><p>Benchmark Linear Regression, Random Forest, and XGBoost against SARIMA, Prophet, and simple baselines. XGBoost is carried forward as the ML forecaster — with the caveat, established later, that it does not statistically beat SARIMA or Prophet once evaluation is done properly.</p></div></div>
 <div class="step reveal"><div class="step-num">05</div><div><h4>Explainability</h4><p>Apply SHAP to the final model so every forecast can answer not just “what?” but “why?”.</p></div></div>
 <div class="step reveal"><div class="step-num">06</div><div><h4>Recursive forecasting</h4><p>Project OTP 3–12 months ahead by feeding each prediction back as a lag feature, with Low / Medium / High risk scoring.</p></div></div>
-<div class="step reveal"><div class="step-num">07</div><div><h4>Baselines & validation</h4><p>Benchmark against naive, moving-average, SARIMA, and Prophet baselines, then stress-test with 5-fold chronological time-series cross-validation.</p></div></div>
-<div class="step reveal"><div class="step-num">08</div><div><h4>Uncertainty & dashboard</h4><p>Add residual-based prediction intervals, document the research methodology, and ship everything as a six-page Streamlit dashboard.</p></div></div></div>
+<div class="step reveal"><div class="step-num">07</div><div><h4>Rolling-origin validation</h4><p>Re-evaluate every model with a rolling-origin protocol — 119 one-step-ahead forecasts plus expanding-window cross-validation — which overturns the short hold-out and shows XGBoost, SARIMA, and Prophet statistically tied.</p></div></div>
+<div class="step reveal"><div class="step-num">08</div><div><h4>Uncertainty, tests & dashboard</h4><p>Add residual-based prediction intervals, lock the pipeline behind a pytest suite with GitHub Actions CI, and ship everything as a deployed six-page Streamlit dashboard.</p></div></div></div>
   </div>
 </section>
 
@@ -90,22 +112,21 @@
     <div class="section-head reveal">
       <p class="eyebrow accent">Results</p>
       <h2 class="headline">How it performs.</h2>
-      <p class="lede">Every model was tested on the same held-out window, August 2025 to January 2026.</p>
+      <p class="lede">Mean absolute error across 119 rolling one-step-ahead forecasts — the evaluation that survives when more data arrives.</p>
     </div>
     <table class="result-table reveal">
       <thead>
-        <tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R&sup2;</th><th>MAPE</th></tr>
+        <tr><th>Model</th><th>Rolling-origin MAE</th><th>Verdict</th></tr>
       </thead>
       <tbody>
-        <tr class="highlight"><td>XGBoost Fair <span class="check">&#10003;</span></td><td>1.21</td><td>1.50</td><td>0.48</td><td>1.24</td></tr>
-        <tr><td>6-Month Moving Average</td><td>1.49</td><td>2.34</td><td>&minus;0.27</td><td>1.57</td></tr>
-        <tr><td>3-Month Moving Average</td><td>1.76</td><td>2.46</td><td>&minus;0.40</td><td>1.85</td></tr>
-        <tr><td>Prophet</td><td>2.31</td><td>2.64</td><td>&minus;0.61</td><td>2.41</td></tr>
-        <tr><td>SARIMA</td><td>2.34</td><td>2.78</td><td>&minus;0.78</td><td>2.44</td></tr>
-        <tr><td>Naive Baseline</td><td>2.68</td><td>3.39</td><td>&minus;1.65</td><td>2.80</td></tr>
+        <tr class="highlight"><td>SARIMA</td><td>1.37</td><td>Statistical tie <span class="check">&#10003;</span></td></tr>
+        <tr class="highlight"><td>Prophet</td><td>1.49</td><td>Statistical tie <span class="check">&#10003;</span></td></tr>
+        <tr class="highlight"><td>XGBoost</td><td>1.52</td><td>Statistical tie <span class="check">&#10003;</span></td></tr>
+        <tr><td>Naive Baseline</td><td>2.18</td><td>~30% worse</td></tr>
+        <tr><td>3-Month Moving Average</td><td>2.27</td><td>~30% worse</td></tr>
       </tbody>
     </table>
-    <p class="viz-note reveal">XGBoost was retrained only on data through July 2025 to keep the comparison fair, and ranked first on all four metrics. Across chronological 5-fold cross-validation it averaged MAE 2.11; the most recent fold, with the longest training history, reached MAE 1.30 and R&sup2; 0.59. Prediction intervals came in at 79.5% and 89.7% coverage against 80% and 90% targets.</p>
+    <p class="viz-note reveal">A single six-month hold-out first ranked XGBoost 18.7% ahead; five more months of data erased that lead. Under rolling-origin evaluation the three sophisticated models are statistically indistinguishable, and all clearly beat the naive and moving-average baselines. Across five expanding-window cross-validation folds (2010–2026) MAE averaged 2.11 ± 0.59, and residual-based prediction intervals reached 79.5% and 89.7% coverage against 80% and 90% targets.</p>
   </div>
 </section>
 
@@ -116,17 +137,17 @@
       <h2 class="headline">Project details.</h2>
     </div>
     <dl class="spec reveal">
-      <div class="spec-row"><dt>Data source</dt><dd>MTA Open Data - Staten Island Railway on-time performance (monthly, through January 2026)</dd></div>
+      <div class="spec-row"><dt>Data source</dt><dd>MTA Open Data — Staten Island Railway on-time performance (~20 years of monthly records, 2006–2026)</dd></div>
 <div class="spec-row"><dt>Problem type</dt><dd>Time-series regression with recursive multi-step forecasting</dd></div>
-<div class="spec-row"><dt>Models compared</dt><dd>Linear Regression · Random Forest · Naive · 3- &amp; 6-month moving averages · SARIMA · Prophet · XGBoost (selected)</dd></div>
-<div class="spec-row"><dt>Model selection</dt><dd>XGBoost Fair ranked 1st on MAE, RMSE, R&sup2;, and MAPE in the leakage-safe Phase 13 holdout, trained only on data available before the test period</dd></div>
-<div class="spec-row"><dt>Deliverables</dt><dd>Final report (Markdown and PDF), presentation deck, and the six-page Streamlit dashboard</dd></div>
-<div class="spec-row"><dt>Validation</dt><dd>5-fold chronological time-series cross-validation plus a held-out Aug 2025 – Jan 2026 test window</dd></div>
+<div class="spec-row"><dt>Models compared</dt><dd>Linear Regression · Random Forest · XGBoost · SARIMA · Prophet · Naive · 3- &amp; 6-month moving averages</dd></div>
+<div class="spec-row"><dt>Headline finding</dt><dd>Under rolling-origin evaluation (119 one-step forecasts), XGBoost, SARIMA, and Prophet tie statistically at ~1.37–1.52 MAE — all ~30% better than baselines; an initial six-month hold-out's 18.7% XGBoost lead did not survive more data</dd></div>
+<div class="spec-row"><dt>Deliverables</dt><dd>Final report (Markdown and PDF), presentation deck, a deployed six-page Streamlit dashboard, and a pytest suite with GitHub Actions CI</dd></div>
+<div class="spec-row"><dt>Validation</dt><dd>Rolling-origin evaluation (119 one-step-ahead forecasts) plus 5-fold expanding-window time-series cross-validation (2010–2026)</dd></div>
 <div class="spec-row"><dt>Uncertainty</dt><dd>Residual-based prediction intervals: 79.5% / 89.7% actual coverage vs. 80% / 90% targets</dd></div>
 <div class="spec-row"><dt>Explainability</dt><dd>SHAP (SHapley Additive Explanations)</dd></div>
 <div class="spec-row"><dt>Key drivers found</dt><dd>Seasonality, delay rate, recent OTP momentum, rolling operational trends</dd></div>
 <div class="spec-row"><dt>Interface</dt><dd>Six-page Streamlit dashboard: Home, System Health, OTP Trends, AI Forecast, Scenario Lab, Research</dd></div>
-<div class="spec-row"><dt>Status</dt><dd>Core pipeline, dashboard, final report, and presentation complete; weather features and risk-classification refinement are planned next</dd></div>
+<div class="spec-row"><dt>Status</dt><dd>Pipeline, deployed dashboard, tests/CI, final report, and presentation complete; weather features and refined OTP risk classification are planned next</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>
@@ -148,10 +169,10 @@
 <section class="section gray cta-band">
   <div class="wrap reveal">
     <h2 class="headline">Want the full story?</h2>
-    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">GitHub Repo</a>
-      
+    <p class="lede" style="margin-top:14px">Explore the deployed dashboard, or read the complete code, notebooks, and documentation on GitHub.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="https://staten-island-otp-forecasting.streamlit.app" target="_blank" rel="noopener">Live dashboard</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/staten-island-otp-forecasting" target="_blank" rel="noopener">GitHub Repo</a>
     </div>
   </div>
 </section>

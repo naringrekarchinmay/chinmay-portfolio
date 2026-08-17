@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Predicting Slow NYC EMS Response Risk — Chinmay Naringrekar</title>
+<meta name="description" content="Leakage-Aware Ensemble Learning for Predicting Slow NYC EMS Response Risk: a leakage-controlled, time-ordered study on 10.1 million FDNY dispatch records asking whether call-intake information alone predicts unusually slow response, and whether ensembles beat single models. Harrisburg University, ANLY 530, Group 8.">
+<meta name="color-scheme" content="dark light">
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="page-ems">
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; Predicting Slow NYC EMS Response Risk</p></div>
+</div>
+
+<section class="p-hero">
+  <div class="wrap">
+    <span class="badge">Research · Group project</span><br><p class="eyebrow">Machine Learning · Public-Safety Analytics</p>
+    <h1 class="display">Predicting Slow NYC EMS Response Risk</h1>
+    <p class="lede">A leakage-controlled, time-ordered study on 10.1 million NYC EMS dispatch records. It asks whether what a dispatcher knows the moment a call comes in can predict an unusually slow response, and whether ensemble models do that any better than a single model does.</p>
+    <p class="viz-note" style="margin-top:22px">Harrisburg University · ANLY 530 · Group 8</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Emergency medical services work under a simple constraint: a dispatched unit either arrives quickly or it does not, and what decides which happens is already in place before anyone chooses how to respond. If those conditions can be read the moment a call comes in, a dispatcher learns something they would otherwise only find out by watching the clock.</p>
+      <p>So the study asks whether call-intake information on its own can predict a <strong>slow</strong> response. Slow here means a response time above the 75th percentile for the call's own severity level, so the bar moves with severity instead of sitting at a single citywide cutoff. It also asks whether ensemble methods do this better than single models. Both questions are settled under time-ordered validation on 10.1 million New York City dispatch records from 2019 to 2025.</p>
+      <p>The word <em>leakage-aware</em> carries most of the weight. The published records cover the full incident lifecycle, and most of their fields only become known once a unit is dispatched or arrives. Several of them give the outcome away almost directly. A careless model would &ldquo;predict&rdquo; response speed from information that exists only because the response already happened. To stop that, every one of the 31 retrieved fields is labeled by the point in the lifecycle when it becomes known, the model is limited to the 13 available at intake, and that boundary is enforced in code and checked with unit tests.</p>
+      <p>The results are reported with the same care that went into the model. Ensembles do come out ahead on macro F1 and precision, but only by about 0.03. On recall, the metric this project treated as primary, a plain logistic regression beats three of the four ensemble methods, and the stacking model that was chosen clears it by just 4.1 points. Every headline metric looked better on the protected 2025 year, but that was the city's own slow-response rate drifting upward under a fixed threshold, not the model improving. The skill is real but small: PR-AUC 0.5645 against a 0.4014 baseline. And the model is not fit for individual-level decisions, because it never once puts a probability above 0.8585 or below 0.1401.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What makes it rigorous.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🔒</div><h4>A tested leakage boundary</h4><p>All 31 dispatch fields are sorted by when they become known during an incident. Only the 13 available at call intake are used, and the boundary is enforced in code and covered by unit tests.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">⏱️</div><h4>Time-ordered validation</h4><p>Expanding yearly folds that always train on the past and validate on the next year. The most recent complete year, 2025, was frozen and opened only once, as a protected test set.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🪜</div><h4>A seven-model ladder</h4><p>Seven models, from a majority-class dummy up through logistic regression, a decision tree, random forest, gradient boosting, and soft voting, to a stacking ensemble. All were compared at their default settings.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🎯</div><h4>A severity-relative target</h4><p>&ldquo;Slow&rdquo; means above the 75th percentile of response time <em>within a call&rsquo;s own severity level</em>, not a single citywide cutoff. That makes it roughly a one-in-four classification problem.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧮</div><h4>Same-rows comparators</h4><p>Every headline metric is measured against a trivial baseline on the same rows. Three fold-matching mistakes that had quietly inflated earlier claims were caught and fixed.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🗺️</div><h4>Geography over the clock</h4><p>Dispatch area and recent call volume matter most; the hour of the day ranks seventh of thirteen. The model reads system load and location, not rush hour.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Results</p>
+      <h2 class="headline">What the numbers say.</h2>
+      <p class="lede">The chosen stacking ensemble on the frozen 2025 protected year, with each metric measured against a trivial baseline on the same rows.</p>
+    </div>
+    <table class="result-table reveal">
+      <thead>
+        <tr><th>Metric</th><th>Validation (folds 1 to 3)</th><th>2025 protected year</th><th>Trivial baseline</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Slow-response recall</td><td>0.6613</td><td>0.7309</td><td>1.0000 <span style="font-weight:400">(always-slow)</span></td></tr>
+        <tr><td>Precision</td><td>0.4309</td><td>0.5002</td><td>0.4014 <span>(base rate)</span></td></tr>
+        <tr><td>Macro F1</td><td>0.5804</td><td>0.5988</td><td>0.3745 <span>(majority class)</span></td></tr>
+        <tr class="highlight"><td>PR-AUC</td><td>0.4720</td><td>0.5645</td><td>0.4014 <span>(base rate)</span></td></tr>
+        <tr><td>Balanced accuracy</td><td>0.6067</td><td>0.6206</td><td>0.5000</td></tr>
+        <tr><td>Brier score</td><td>0.2369</td><td>0.2346</td><td>0.4014 <span>(lower is better)</span></td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note reveal">The edge is small but genuine: PR-AUC 0.5645 against a 0.4014 baseline (a 1.41&times; lift), and precision about 1.25 times the base rate. Every metric looks better on 2025, but that is the slow-response rate itself climbing from 0.2495 to 0.4014. The prevalence moved under a fixed threshold; the model did not get better. On the 2025 confusion matrix, false positives (431,595) come out almost even with true positives (431,923), so about half of what the model flags is a false alarm. It also never commits: no predicted probability goes above 0.8585 or below 0.1401. That is why it can rank incidents better than chance and still be a poor basis for any single decision.</p>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div><div><h4>Retrieve &amp; audit</h4><p>Query the FDNY EMS Incident Dispatch Data (NYC Open Data, dataset 76xm-jjuj) through the Socrata API for 2019 to 2025, recording a SHA-256 checksum of the pull. The result is 10,881,496 incidents.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div><h4>Construct the population</h4><p>An ordered set of exclusions removes reopened, cancelled, and transfer incidents, records with no completed response, and physically impossible zero or negative response times. That leaves 10,149,631 incidents, 93.3% of the pull.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div><h4>Define the target</h4><p>Mark an incident slow when its validated response time exceeds the 75th percentile within its initial severity level, with the threshold computed on training data only and never on the test year.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div><h4>Draw the leakage boundary</h4><p>Sort all 31 fields by the lifecycle stage when they become known, whether at intake, dispatch, arrival, or as an outcome. Keep only the 13 known at intake, and unit-test the boundary so nothing downstream can leak in.</p></div></div>
+      <div class="step reveal"><div class="step-num">05</div><div><h4>Encode features</h4><p>Six calendar derivatives, two categorical intake fields (call type and severity), two geographic ones (borough and dispatch area), and three historical aggregates (prior-hour and prior-24-hour counts, plus an expanding mean response by severity). One-hot encoding expands these to 114 columns.</p></div></div>
+      <div class="step reveal"><div class="step-num">06</div><div><h4>Build the ladder</h4><p>Fit seven models, from a dummy up to a stacking ensemble whose base learners are logistic regression, random forest, and gradient boosting under a logistic meta-learner trained on out-of-fold predictions. Every model runs at its default settings, so the comparison is between model families rather than tuning budgets.</p></div></div>
+      <div class="step reveal"><div class="step-num">07</div><div><h4>Validate in time order</h4><p>Score every model on expanding yearly folds that validate on 2021 through 2024, and select on slow-response recall subject to a minimum 0.40 precision floor fixed in advance. Stacking wins, leading the next model by 4.1 points fold for fold.</p></div></div>
+      <div class="step reveal"><div class="step-num">08</div><div><h4>Open the protected year</h4><p>Score the frozen 2025 configuration on held-out 2025 data once, and write the predictions, base-learner probabilities, and feature matrix to a saved extract that every later analysis reads from.</p></div></div>
+      <div class="step reveal"><div class="step-num">09</div><div><h4>Interpret &amp; stress-test</h4><p>SHAP and permutation importance as two attribution methods that check each other, a calibration and reliability analysis, and recall and precision across six pre-registered subgroups: borough, dispatch area, severity, call type, hour, and volume.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Interpretation</p>
+      <h2 class="headline">What the model actually uses.</h2>
+    </div>
+    <div class="feature-grid cols-2">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📍</div><h4>Geography leads</h4><p>Dispatch area is the single strongest feature under both attribution methods, and the two geographic fields together outweigh any other pair. Every model improves when borough and dispatch area are included, and two-thirds of the model&rsquo;s confident false alarms come from one dispatch area.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📈</div><h4>It reads load, not the clock</h4><p>Recent call volume ranks above the hour of the day, which sits seventh of thirteen even though the raw rate has a clear daily rhythm. The model has learned that stretches of heavy recent call volume are slow, not that evenings are. That distinction is what matters on an unusually busy morning.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧩</div><h4>The ensemble is thinner than it looks</h4><p>The case for an ensemble rests on its members making different mistakes. Here they largely don&rsquo;t: the base learners agree on 85.5% of rows, and 40.5% of all errors are unanimous, where no combination rule can help. Stacking buys a modest recall gain, not error diversity.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📐</div><h4>A comparator must share the rows</h4><p>The most portable lesson here is methodological: a model score and its baseline only mean something when they are computed on the same rows. Three plausible-looking numbers made it past a first review while comparing across mismatched folds, and each one flipped a headline claim once it was corrected.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>Paper</dt><dd>Leakage-Aware Ensemble Learning for Predicting Slow NYC EMS Response Risk</dd></div>
+      <div class="spec-row"><dt>Data source</dt><dd>FDNY EMS Incident Dispatch Data, NYC Open Data (dataset 76xm-jjuj)</dd></div>
+      <div class="spec-row"><dt>Scale</dt><dd>10.1M incidents, 2019 to 2025; 10,149,631 (93.3%) kept after exclusions</dd></div>
+      <div class="spec-row"><dt>Problem type</dt><dd>Binary classification of severity-relative slow-response risk</dd></div>
+      <div class="spec-row"><dt>Prediction moment</dt><dd>Call intake, leakage-controlled: 13 intake fields expanded to 114 encoded columns</dd></div>
+      <div class="spec-row"><dt>Target</dt><dd>Response time above the 75th percentile within initial severity level (about a 25% base rate in development)</dd></div>
+      <div class="spec-row"><dt>Models</dt><dd>Dummy · Logistic Regression · Decision Tree · Random Forest · Gradient Boosting · Soft Voting · Stacking (selected)</dd></div>
+      <div class="spec-row"><dt>Validation</dt><dd>Time-ordered expanding yearly folds; 2025 held out as a frozen, once-opened protected test year</dd></div>
+      <div class="spec-row"><dt>Primary metric</dt><dd>Slow-response recall, subject to a fixed 0.40 minimum precision floor</dd></div>
+      <div class="spec-row"><dt>Headline result</dt><dd>PR-AUC 0.5645 vs. a 0.4014 baseline (1.41&times; lift); real but modest skill, and not suitable for individual-level decisions</dd></div>
+      <div class="spec-row"><dt>Key drivers</dt><dd>Dispatch area and recent call volume: geography and system load, not time of day</dd></div>
+      <div class="spec-row"><dt>Course</dt><dd>Harrisburg University · ANLY 530 · Group 8 (August 2026)</dd></div>
+      <div class="spec-row"><dt>Status</dt><dd>Complete course research project; the code repository is private</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">Python 3.11</span>
+      <span class="chip">Pandas</span>
+      <span class="chip">NumPy</span>
+      <span class="chip">Scikit-learn</span>
+      <span class="chip">SHAP</span>
+      <span class="chip">Matplotlib</span>
+      <span class="chip">PyArrow</span>
+      <span class="chip">Joblib</span>
+      <span class="chip">Socrata API</span>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">A group research project.</h2>
+    <p class="lede" style="margin-top:14px">Built with classmates for ANLY 530 at Harrisburg University. The repository is private for now, so there is no public link yet, but the full methodology and results are written up in the paper and presentation deck.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="disease-progression.html"><span class="label">&larr; Previous</span><span class="title">Healthcare ML: Disease Progression</span></a>
+      <a class="next" href="staten-island-otp.html"><span class="label">Next &rarr;</span><span class="title">Staten Island Railway OTP Forecasting</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>
