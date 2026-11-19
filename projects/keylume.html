@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keylume: macOS Keyboard Configurator · Chinmay Naringrekar</title>
+<meta name="description" content="Keylume is an unofficial macOS app and command-line tool for configuring Royal Kludge RK84 keyboards: lighting, per-key RGB, and key remapping. The vendor ships only a Windows app; Keylume gives Mac users a native one, built on a protocol recovered by reverse engineering.">
+<meta name="color-scheme" content="dark light">
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="page-keylume">
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#apps">Apps</a></li>
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; Keylume</p></div>
+</div>
+
+<section class="p-hero">
+  <div class="wrap">
+    <p class="eyebrow">macOS · Reverse Engineering</p>
+    <h1 class="display">Keylume</h1>
+    <p class="lede">An unofficial macOS app and command-line tool for configuring Royal Kludge keyboards, starting with the RK84 RGB. The vendor ships only a Windows app; Keylume gives Mac users the same lighting and key-remapping in a native app with a Liquid Glass design.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/keylume/releases" target="_blank" rel="noopener">Download</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/keylume" target="_blank" rel="noopener">GitHub Repo</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Royal Kludge keyboards ship with a Windows-only configurator, so on a Mac there is no supported way to change the lighting, paint individual keys, or remap them. Keylume closes that gap with a native macOS app, plus a command-line tool, that drives the keyboard over its USB cable.</p>
+      <p>The interesting part is that none of this is documented. The protocol was recovered by statically analysing the vendor's Windows app with REA and rizin, then rebuilt from scratch: settings are sent as 65-byte HID feature reports, and the packet builder is covered by byte-exact unit tests so a change to the format fails a test rather than a keyboard. Everything is verified on real RK84 RGB hardware, and the app never reads keystrokes, only sends settings.</p>
+      <p>It is split cleanly: a pure, unit-tested core builds the packets and talks to the hardware through IOKit, a CLI exposes it for scripting and dry runs, and a SwiftUI app wraps it for everyday use. Tagged releases are built into a universal Apple silicon and Intel app by GitHub Actions.</p>
+      <p>Keylume is an independent, unofficial project and is not affiliated with, endorsed by, or sponsored by Royal Kludge. The names are used only to describe compatibility.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🌈</div><h4>Lighting effects</h4><p>All 19 built-in effects, with brightness, speed, a solid colour or rainbow, and a sleep timer, plus an animated preview. Changes apply to the keyboard instantly.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🎨</div><h4>Per-key colours</h4><p>Paint individual keys and write them to the keyboard's Custom mode, with select-all and fill-all to work quickly.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">⌨️</div><h4>Key remapping</h4><p>Any key can send another key, a modifier, a media key, or nothing at all, and a single click restores the stock layout.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🖥️</div><h4>Native app and CLI</h4><p>A SwiftUI app for everyday use and a command-line tool for scripting, including a dry-run mode that prints the raw HID reports instead of sending them.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🔍</div><h4>Reverse-engineered protocol</h4><p>The undocumented format was recovered from the vendor's Windows app with REA and rizin, rebuilt as 65-byte HID feature reports, and locked in with byte-exact packet tests.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">💾</div><h4>Remembers your setup</h4><p>The keyboard cannot report its current settings, so the app saves them locally and shows what you last applied.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">The app</p>
+      <h2 class="headline">A look inside.</h2>
+      <p class="lede">A native SwiftUI interface with a live keyboard preview, built to feel at home on macOS.</p>
+    </div>
+    <figure class="viz-frame reveal">
+      <img src="assets/keylume/lighting.png" alt="Keylume's Lighting screen: a rainbow-lit RK84 keyboard preview above a glass panel with effect buttons, brightness and speed sliders, and colour and sleep settings." loading="lazy" width="1200" height="953" style="width:100%;height:auto">
+    </figure>
+    <p class="viz-note reveal">Lighting: all 19 effects with brightness, speed, colour or rainbow, and a sleep timer, over an animated preview.</p>
+    <figure class="viz-frame reveal" style="margin-top:32px">
+      <img src="assets/keylume/per-key.png" alt="Per-key colours screen: the W, A, S, and D keys painted red, with a colour palette and select-all and fill-all buttons." loading="lazy" width="1200" height="953" style="width:100%;height:auto">
+    </figure>
+    <p class="viz-note reveal">Per-key colours: paint individual keys and write them to the keyboard's Custom mode.</p>
+    <figure class="viz-frame reveal" style="margin-top:32px">
+      <img src="assets/keylume/remap.png" alt="Remap keys screen: the Pause key remapped to send S, with a searchable list of keys to choose from." loading="lazy" width="1200" height="953" style="width:100%;height:auto">
+    </figure>
+    <p class="viz-note reveal">Remap keys: send another key, a modifier, a media key, or nothing, with a searchable picker.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div><div><h4>Recover the protocol</h4><p>Statically analyse the vendor's Windows app with REA and rizin to work out how it talks to the keyboard, and write down what is verified and what is inferred.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div><h4>Rebuild the packets</h4><p>Reconstruct the settings as 65-byte HID feature reports in a pure core (KeylumeKit) covered by byte-exact unit tests.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div><h4>Talk to the hardware</h4><p>Send the reports over the USB cable through IOKit, requesting only the Input Monitoring permission macOS requires to reach a keyboard.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div><h4>App and command line</h4><p>Wrap the core in a SwiftUI app for everyday use and a CLI for scripting and dry runs, both on the same tested foundation.</p></div></div>
+      <div class="step reveal"><div class="step-num">05</div><div><h4>Verify on hardware</h4><p>Confirm lighting, sleep timer, per-key colours, remapping, and restore-defaults on a real RK84 RGB.</p></div></div>
+      <div class="step reveal"><div class="step-num">06</div><div><h4>Ship releases</h4><p>Build a universal Apple silicon and Intel app from a version tag with GitHub Actions and publish it as a downloadable zip.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>What it is</dt><dd>An unofficial macOS app and CLI for configuring Royal Kludge RK84 RGB keyboards: lighting, per-key colour, and key remapping</dd></div>
+      <div class="spec-row"><dt>Platform</dt><dd>macOS 14 or later, on Apple silicon or Intel</dd></div>
+      <div class="spec-row"><dt>Hardware verified</dt><dd>RK84 RGB, wired over USB-C (USB ID 258A:00C8): lighting, sleep timer, per-key colours, remap, and restore defaults</dd></div>
+      <div class="spec-row"><dt>Connection</dt><dd>USB cable only; Bluetooth and 2.4 GHz are not supported, and the vendor app does not support them either</dd></div>
+      <div class="spec-row"><dt>Protocol</dt><dd>Recovered by static analysis of the vendor's Windows app with REA and rizin; settings sent as 65-byte HID feature reports (report ID 0x0A)</dd></div>
+      <div class="spec-row"><dt>Interfaces</dt><dd>A SwiftUI app and a CLI, both on KeylumeKit, a pure core that builds the packets and is unit-tested byte for byte</dd></div>
+      <div class="spec-row"><dt>Releases</dt><dd>A universal Apple silicon and Intel zip built by GitHub Actions on each version tag</dd></div>
+      <div class="spec-row"><dt>License</dt><dd>MIT</dd></div>
+      <div class="spec-row"><dt>Affiliation</dt><dd>Independent, unofficial project; not affiliated with, endorsed by, or sponsored by Royal Kludge</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">Swift</span>
+      <span class="chip">SwiftUI</span>
+      <span class="chip">IOKit</span>
+      <span class="chip">HID</span>
+      <span class="chip">REA</span>
+      <span class="chip">rizin</span>
+      <span class="chip">GitHub Actions</span>
+      <span class="chip">CLI</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">Download a build, or read the source, the packet tests, and the protocol notes on GitHub.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/keylume/releases" target="_blank" rel="noopener">Download</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/keylume" target="_blank" rel="noopener">GitHub Repo</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="noted-f1-stewarding.html"><span class="label">&larr; Previous</span><span class="title">Noted: F1 Stewarding, Explained</span></a>
+      <a class="next" href="blindspot-ai.html"><span class="label">Next &rarr;</span><span class="title">BlindSpot AI</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

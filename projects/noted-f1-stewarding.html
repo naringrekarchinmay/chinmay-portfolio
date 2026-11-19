@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noted: F1 Stewarding, Explained · Chinmay Naringrekar</title>
+<meta name="description" content="Noted reads every FIA stewarding document from an F1 weekend and answers the question fans actually ask: why this penalty, and was it consistent with the last time this happened. A free, local build with rule-based parsing, a local model through Ollama, SQLite, and a static site.">
+<meta name="color-scheme" content="dark light">
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="page-noted">
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#apps">Apps</a></li>
+      <li><a href="../index.html#projects">ML Projects</a></li>
+      <li><a href="../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div>
+  <div class="wrap"><p class="breadcrumb"><a href="../index.html">Portfolio</a> &nbsp;&rsaquo;&nbsp; Noted: F1 Stewarding, Explained</p></div>
+</div>
+
+<section class="p-hero">
+  <div class="wrap">
+    <span class="badge wip">Work in progress</span><br><p class="eyebrow">Local AI · F1 Stewarding</p>
+    <h1 class="display">Noted</h1>
+    <p class="lede">F1 stewarding, explained. Named after the race control message "incident noted". Noted reads every FIA document from a race weekend and answers the question fans actually ask: why this penalty, and was it consistent with the last time this happened.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/noted-F1-stewarding" target="_blank" rel="noopener">GitHub Repo</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow">
+    <div class="prose reveal">
+      <p>Every F1 weekend the FIA publishes dozens of PDFs: stewards' decisions, summonses, technical delegate reports, the race director's notes. Fans argue about the penalties for days, and almost nobody reads the documents or the regulations behind them. Noted reads all of it and gives you the ruling, the rule, and the precedent in one place.</p>
+      <p>It is built as a free, local system: rule-based parsing for the fields that rules can handle, a local model through Ollama for the few narrow steps that need language, SQLite for storage, and a static site for reading. Nothing leaves the machine, and every published claim can be traced back to a line in the original document.</p>
+      <p>The hard part is not extraction, it is judgment: deciding when two incidents are really alike, and writing a plain-English brief that never says more than the document does. Noted treats both as problems to measure, not to hand-wave. Precedent is scored against hand-checked incidents, and every brief is linted against its source before it is shown.</p>
+      <p>Unofficial fan project. It uses public FIA documents and open timing data and is not affiliated with Formula 1 or the FIA.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Highlights</p>
+      <h2 class="headline">What it does.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📄</div><h4>Reads the rulings</h4><p>Fetches the FIA listings, classifies each PDF by title, and parses stewards' rulings into fields, keeping each claim's position in the source so it points back to a line in the original.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧾</div><h4>Local model, quote checked</h4><p>For narrative documents a local model (gemma4:e4b via Ollama) fills the fields rules cannot, with a quote check that drops anything it cannot find in the text. On the gold set it invented zero quotes.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🔁</div><h4>Precedent with a challenge</h4><p>TF-IDF over the stewards' wording with names masked, plus rare-factor overlap, then a local-model challenge that re-rates the top candidates for on-track incidents. Fifteen of twenty test incidents pass a blind check.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">✍️</div><h4>Briefs that cannot drift</h4><p>The model writes two or three sentences; a lint rejects any number, name, or quote not in the document, any statement of the decision, verdict words, and filler, and sends the problems back for a rewrite, up to four drafts.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧑‍⚖️</div><h4>You be the steward</h4><p>Each ruling page hides the decision until you rule on it yourself, kept in your browser, then reveals the stewards' reasons with cited quotes, the precedents on one penalty scale, and a replay of the cars.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📘</div><h4>Linked to the rulebook</h4><p>The regulations are split into articles (379 in Sporting Regulations Section B, plus the code of driving conduct), and an article reference in a 2026 ruling links straight to the article it cites.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Results</p>
+      <h2 class="headline">How it performs.</h2>
+      <p class="lede">Extraction on a gold set of 30 rulings, labelled before any model ran. gemma4:e4b was chosen over qwen3.5:9b for its precision, its honesty on quotes, and half the time per ruling.</p>
+    </div>
+    <table class="result-table reveal">
+      <thead>
+        <tr><th>Metric (gold set)</th><th>Rules only</th><th>qwen3.5:9b</th><th>gemma4:e4b</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Outcome correct</td><td>24/30</td><td>30/30</td><td>30/30 <span class="check">&#10003;</span></td></tr>
+        <tr class="highlight"><td>Penalties exact</td><td>29/30</td><td>29/30</td><td>30/30 <span class="check">&#10003;</span></td></tr>
+        <tr><td>Incident type</td><td>25/30</td><td>27/30</td><td>26/30</td></tr>
+        <tr class="highlight"><td>Factor F1 (on-track)</td><td>n/a</td><td>0.64</td><td>0.68 <span class="check">&#10003;</span></td></tr>
+        <tr class="highlight"><td>Invented quotes</td><td>n/a</td><td>8 of 69</td><td>0 of 40 <span class="check">&#10003;</span></td></tr>
+        <tr><td>Seconds per ruling</td><td>0</td><td>13.6</td><td>7.0</td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note reveal">Outcome and penalties are handled mostly by rules; the model is used for the narrative documents that have no decision field. The open problem is factor precision (0.58): about four in ten factors the model reports carry a real quote that does not actually support the label, and a per-factor check pass is the next step. On precedent, adding the challenge loop lifts the pass rate to 15 of 20 incidents (mean relevance 1.37 of 2). On briefs, a blind check of 20 read 13 correct, 6 minor, and 1 wrong, with no role swaps; across the full run the lint passed 988 of 1,151 briefs within four drafts and hid the rest.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Approach</p>
+      <h2 class="headline">How it was built.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div><div><h4>Fetch and classify</h4><p>Pull the FIA document listings for a race, download the ruling PDFs, and classify each one by title.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div><h4>Parse into fields</h4><p>Turn each PDF into text and structured fields (session, car, driver, alleged breach, article, facts, decision, penalty, reasoning), keeping each field's position in the source.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div><h4>Local-model extraction</h4><p>Run the narrative documents through gemma4:e4b on Ollama with a fixed vocabulary and a quote check, scored against a 30-ruling gold set.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div><h4>Precedent and its challenge</h4><p>Rank earlier rulings by TF-IDF over the stewards' wording with names masked and rare-factor overlap, then let the local model challenge and re-rank the top candidates for on-track incidents.</p></div></div>
+      <div class="step reveal"><div class="step-num">05</div><div><h4>The notice board</h4><p>Build a static site where each weekend is a board of rulings by session, each ruling hides its decision until you rule on it, and 324 rulings since 2023 carry an OpenF1 replay of the cars.</p></div></div>
+      <div class="step reveal"><div class="step-num">06</div><div><h4>Briefs and the copy desk</h4><p>Write a two or three sentence brief per ruling and lint it against the source, rejecting anything the document does not say, with the decision and the precedent comparison composed in code.</p></div></div>
+      <div class="step reveal"><div class="step-num">07</div><div><h4>Rules</h4><p>Split the current rulebooks into articles and link each 2026 ruling's article references to the article it cites, or to the FIA PDF when the rulebook is missing.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">At a glance</p>
+      <h2 class="headline">Project details.</h2>
+    </div>
+    <dl class="spec reveal">
+      <div class="spec-row"><dt>What it is</dt><dd>A reader for FIA stewarding documents that explains each penalty with its rule and its precedent</dd></div>
+      <div class="spec-row"><dt>Scope</dt><dd>324 rulings with an OpenF1 replay since 2023, and a gold set of 30 labelled rulings for measuring extraction</dd></div>
+      <div class="spec-row"><dt>Extraction</dt><dd>Rule-based fields plus a local model (gemma4:e4b via Ollama) for narrative documents, every claim tied to a quote in the source</dd></div>
+      <div class="spec-row"><dt>Precedent</dt><dd>TF-IDF over the stewards' wording with names masked, weighted by rare-factor overlap, with a local-model challenge of the top candidates for on-track incidents</dd></div>
+      <div class="spec-row"><dt>Briefs</dt><dd>Two to three sentences, linted against the source so no number, name, or quote appears that is not in the document; power-unit and gearbox decisions get none</dd></div>
+      <div class="spec-row"><dt>Interface</dt><dd>A static site; each ruling hides its decision until you rule on it yourself, kept in your browser</dd></div>
+      <div class="spec-row"><dt>Status</dt><dd>In active build. A free, local version; publishing to the web, with friends' steward-mode votes on a Cloudflare Pages function, is planned and not yet deployed</dd></div>
+      <div class="spec-row"><dt>Affiliation</dt><dd>Unofficial fan project using public FIA documents and open timing data; not affiliated with Formula 1 or the FIA</dd></div>
+    </dl>
+    <div class="chips reveal" style="margin-top:44px">
+      <span class="chip">Python</span>
+      <span class="chip">uv</span>
+      <span class="chip">Ollama</span>
+      <span class="chip">gemma4:e4b</span>
+      <span class="chip">SQLite</span>
+      <span class="chip">TF-IDF</span>
+      <span class="chip">OpenF1</span>
+      <span class="chip">Static site</span>
+      <span class="chip">Cloudflare Pages</span>
+    </div>
+  </div>
+</section>
+
+<section class="section gray cta-band">
+  <div class="wrap reveal">
+    <h2 class="headline">Want the full story?</h2>
+    <p class="lede" style="margin-top:14px">Read the pipeline, the evaluation write-ups, and the build log on GitHub.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/noted-F1-stewarding" target="_blank" rel="noopener">GitHub Repo</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pager reveal">
+      <a href="blindspot-ai.html"><span class="label">&larr; Previous</span><span class="title">BlindSpot AI</span></a>
+      <a class="next" href="keylume.html"><span class="label">Next &rarr;</span><span class="title">Keylume: macOS Keyboard Configurator</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Chinmay Naringrekar. Designed and built with plain HTML, CSS &amp; JavaScript on GitHub Pages.</span>
+    <span><a href="mailto:naringrekarchinmay@gmail.com">Email</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/chinmay-naringrekar">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://github.com/naringrekarchinmay">GitHub</a></span>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

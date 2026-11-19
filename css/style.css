@@ -464,6 +464,9 @@ html[data-theme="dark"] .badge.wip,
 .tile.tint-cancer { --tint: 52, 199, 130; }
 .tile.tint-health { --tint: 158, 122, 255; }
 .tile.tint-ems    { --tint: 255, 111, 60; }
+.tile.tint-blindspot { --tint: 245, 176, 40; }
+.tile.tint-noted     { --tint: 168, 85, 247; }
+.tile.tint-keylume   { --tint: 20, 190, 230; }
 
 /* F1 project page -> red accent in place of the site-wide blue, matching the tint-f1 glow above */
 body.page-f1 {
@@ -491,6 +494,48 @@ html[data-theme="dark"] body.page-ems {
   --blue-hover: #ff8a5c;
   --accent: #ff7a45;
   --accent-soft: rgba(255, 111, 60, 0.2);
+}
+
+/* BlindSpot AI page -> amber accent matching the tint-blindspot glow */
+body.page-blindspot {
+  --blue: #b26a00;
+  --blue-hover: #cc7a00;
+  --accent: #a86300;
+  --accent-soft: rgba(245, 176, 40, 0.16);
+}
+html[data-theme="dark"] body.page-blindspot {
+  --blue: #e0a128;
+  --blue-hover: #f5b73a;
+  --accent: #f5b038;
+  --accent-soft: rgba(245, 176, 40, 0.2);
+}
+
+/* Noted (F1 stewarding) page -> purple accent matching the tint-noted glow */
+body.page-noted {
+  --blue: #7c3aed;
+  --blue-hover: #8b4ef0;
+  --accent: #7c3aed;
+  --accent-soft: rgba(168, 85, 247, 0.14);
+}
+html[data-theme="dark"] body.page-noted {
+  --blue: #9a5cf5;
+  --blue-hover: #b07dff;
+  --accent: #a855f7;
+  --accent-soft: rgba(168, 85, 247, 0.2);
+}
+
+/* Keylume page -> cyan accent matching the tint-keylume glow */
+body.page-keylume {
+  --blue: #0086a3;
+  --blue-hover: #0097b8;
+  --accent: #00758c;
+  --accent-soft: rgba(20, 190, 230, 0.14);
+}
+html[data-theme="dark"] body.page-keylume {
+  --blue: #22b6e6;
+  --blue-hover: #4cc8f0;
+  --accent: #2bc0e6;
+  --accent-soft: rgba(20, 190, 230, 0.2);
 }
 
 /* ---------- Skills ---------- */
