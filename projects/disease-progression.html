@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disease Progression &amp; Multimorbidity Prediction — Chinmay Naringrekar</title>
-<meta name="description" content="Machine learning on synthetic EHR data that predicts hospitalization, ICU admission, 30-day readmission, and multimorbidity progression, with a strict temporal cutoff to prevent leakage, SHAP explainability, and a Streamlit dashboard.">
+<title>Disease Progression &amp; Multimorbidity Prediction · Chinmay Naringrekar</title>
+<meta name="description" content="A PhD research project that starts as leakage-aware progression prediction on synthetic EHR data and grows into a decision question: given that you can predict progression, when is it worth ordering the labs to catch it? It adds a cost-grounded monitoring simulator, a pre-registered evaluation, and an honest account of what held up.">
 <meta name="color-scheme" content="dark light">
 <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <link rel="stylesheet" href="../css/style.css">
@@ -16,6 +16,7 @@
     <a class="nav-brand" href="../index.html">Chinmay Naringrekar</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     <ul class="nav-links">
+      <li><a href="../index.html#apps">Apps</a></li>
       <li><a href="../index.html#projects">ML Projects</a></li>
       <li><a href="../index.html#dashboards">Dashboards</a></li>
       <li><a href="../index.html#skills">Skills</a></li>
@@ -31,12 +32,12 @@
 
 <section class="p-hero">
   <div class="wrap">
-    <span class="badge wip">Work in progress</span><br><p class="eyebrow">Healthcare Analytics · Machine Learning</p>
+    <span class="badge wip">Work in progress</span><br><p class="eyebrow">Healthcare · Decision Research</p>
     <h1 class="display">Disease Progression &amp; Multimorbidity Prediction</h1>
-    <p class="lede">A leakage-aware machine learning pipeline that predicts hospitalization, ICU admission, 30-day readmission, and multimorbidity progression from longitudinal EHR-style data, with explainability built in from the start.</p>
+    <p class="lede">A PhD research project that begins as leakage-aware progression prediction on synthetic EHR data and turns into a harder question: given that you can predict who will progress, when is it actually worth ordering the labs to catch it, and does a smarter monitoring schedule beat a simple one?</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
-
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction/tree/isem735-research" target="_blank" rel="noopener">Research branch</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
     </div>
   </div>
 </section>
@@ -44,9 +45,10 @@
 <section class="section">
   <div class="wrap-narrow">
     <div class="prose reveal">
-      <p>Can a patient's demographics, baseline diagnoses, lab history, medications, and prior hospitalizations predict what happens to them next? This project puts that question to the test on synthetic electronic health records spanning 2018–2024, built from five linked tables: patients, diagnoses, lab results, medications, and outcomes.</p>
-<p>The most important design choice is a strict temporal cutoff. Predictors are built only from events on or before December 31, 2021; outcomes are measured from 2022 through 2024. Patient-level diagnosis flags are deliberately excluded, and baseline conditions are rebuilt from dated diagnosis events before the cutoff, so the model can't peek at the future it is asked to predict.</p>
-<p>The philosophy is the same as my transit work: explainability and decision-support storytelling. A risk score nobody can interpret doesn't change a clinical decision; a transparent one might. It connects directly to my doctoral research in information systems engineering management, where decision-support systems meet real operational and clinical environments.</p>
+      <p>The project started where most clinical ML projects do: predict disease progression and future hospital use from 100,000 synthetic patient records (2018 to 2024), using only events on or before a fixed 2021 cutoff so nothing from the future leaks into the features. That part works. The harder, more interesting work was deciding what the prediction is actually for.</p>
+      <p>Early on, an audit of the data turned up a problem in the dataset itself: the synthetic generator writes future diagnoses backward into past records, so a patient's pre-cutoff medications and lab flags quietly reveal conditions they are not diagnosed with until years later. Pre-cutoff creatinine alone predicts a future kidney-disease diagnosis at AUROC 0.982. None of that is leakage in the pipeline code, but a model that reads those features is cheating through the data. So the whole research line was rebuilt on a leak-free version, and the honest numbers came down, which is the point.</p>
+      <p>From there the question shifted from prediction to decision. Catching a condition early only matters if you measure the patient, and every measurement costs money and clinician time. So the project reframes monitoring as a sequential decision: each quarter, measure this patient or not, trading the price of a lab panel against the cost of leaving a condition undiagnosed. That turns a prediction score into a policy question, evaluated on a cost-grounded simulator with a pre-registered design.</p>
+      <p>The data is synthetic, so none of the clinical findings transfer to real patients. The contribution is the method and the honesty: a validated simulator, a pre-registered sweep, and results reported as they came out, including the ones that did not go the way they were expected to. Developed as part of my PhD coursework in Information Systems Engineering Management.</p>
     </div>
   </div>
 </section>
@@ -54,17 +56,61 @@
 <section class="section gray">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow accent">Highlights</p>
-      <h2 class="headline">What it does.</h2>
+      <p class="eyebrow accent">What makes it research</p>
+      <h2 class="headline">Beyond a model.</h2>
     </div>
     <div class="feature-grid">
-      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🏥</div><h4>Hospitalization risk</h4><p>Predicts which patients will be hospitalized in the 2022–2024 outcome window from their pre-2022 history.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🚨</div><h4>ICU admission risk</h4><p>Estimates each patient's risk of an ICU admission during the outcome window.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🔁</div><h4>30-day readmission</h4><p>Models the risk of readmission within 30 days, a core hospital quality and cost metric.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧬</div><h4>Multimorbidity progression</h4><p>Among patients with fewer than two baseline conditions, predicts who progresses into multimorbidity.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">⏳</div><h4>Leakage-aware design</h4><p>A strict temporal cutoff separates predictors (through 2021) from outcomes (2022–2024), the same split a deployed model would face.</p></div>
-<div class="feature reveal"><div class="f-icon" aria-hidden="true">🧠</div><h4>Explainability first</h4><p>Feature importance and SHAP analysis expose the drivers behind every risk score, so predictions can support clinical judgment instead of replacing it.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🕵️</div><h4>Caught the data leaking</h4><p>An audit found the synthetic generator encodes all-time diagnoses into pre-cutoff medications and lab flags. The research pipeline rebuilds the data leak-free and reports the lower, honest performance that results.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">💵</div><h4>Cost-grounded decision model</h4><p>Monitoring is framed as a quarterly measure-or-not decision, with the price of a lab panel priced from 2026 Medicare rates against the cost of an undiagnosed condition-month.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🧪</div><h4>A validated simulator</h4><p>A patient simulator stands in for the policy environment and is checked against the real data with the same metric code, passing 38 of 39 validation targets within tolerance.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">📝</div><h4>Pre-registered evaluation</h4><p>The sensitivity sweep is written down and advisor-approved before any run, disclosing what was chosen after seeing results, so the headline cannot be quietly tuned to a flattering number.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">🎛️</div><h4>Policy and off-policy evaluation</h4><p>Policy values are computed exactly from the simulator and compared to fixed schedules, random controls, and a learned fitted-Q policy, with bootstrap confidence intervals over multiple seeds.</p></div>
+      <div class="feature reveal"><div class="f-icon" aria-hidden="true">⚖️</div><h4>An equity lens</h4><p>Every schedule is checked for how it redistributes monitoring across age groups, not just for accuracy, surfacing fairness effects a prediction metric hides.</p></div>
     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">The prediction layer</p>
+      <h2 class="headline">What the models do.</h2>
+      <p class="lede">Multimorbidity progression on the leak-free data, for the at-risk cohort of 41,654 patients who start with fewer than two conditions. Numbers are the test split at a fixed seed.</p>
+    </div>
+    <table class="result-table reveal">
+      <thead>
+        <tr><th>Model (leak-free)</th><th>ROC-AUC</th><th>Brier</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight"><td>Calibrated XGBoost</td><td>0.828</td><td>0.167</td><td>Best, and well calibrated <span class="check">&#10003;</span></td></tr>
+        <tr><td>GRU (sequence model)</td><td>0.821</td><td>0.170</td><td>No gain over the tree</td></tr>
+        <tr><td>Transformer (sequence model)</td><td>0.814</td><td>n/a</td><td>No gain over the tree</td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note reveal">Before the generator leak was fixed, the same XGBoost scored 0.864; closing the leak dropped it to 0.828, and the deep sequence models (GRU, Transformer) do not beat a calibrated gradient-boosted tree on the honest data. The rarer, harder future-hospitalization target (4.55% positive) tops out around ROC-AUC 0.694 and is miscalibrated (Brier 0.211), so those scores are useful for ranking who to review, not as absolute risks. SHAP points to the expected drivers (prior hospitalizations, age, Charlson index), and a Cox model confirms age (hazard ratio about 1.02 per year) and comorbidity burden (about 1.49) raise the progression hazard.</p>
+  </div>
+</section>
+
+<section class="section gray">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">The decision layer</p>
+      <h2 class="headline">When is it worth measuring?</h2>
+      <p class="lede">Restricted mean detection delay in the simulator (all four conditions, signal strength beta = 1), with annual spend per patient. A measurement is priced at $214.49 for a full panel plus office visit.</p>
+    </div>
+    <table class="result-table reveal">
+      <thead>
+        <tr><th>Monitoring schedule</th><th>Spend / patient-yr</th><th>Mean delay (months)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Observed care</td><td>$79</td><td>11.9</td></tr>
+        <tr><td>Clinical guideline</td><td>$112 to $124</td><td>10.1</td></tr>
+        <tr class="highlight"><td>Fixed 12-month</td><td>$214</td><td>6.5 <span class="check">&#10003;</span></td></tr>
+        <tr><td>Random, same budget as 12-month</td><td>$214</td><td>8.0</td></tr>
+        <tr><td>Fixed 3-month</td><td>$858</td><td>3.0</td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note reveal">Two findings the project did not expect, and reports anyway. First, at the originally planned price of an undiagnosed condition-month ($50), <em>never measuring</em> is the best policy at every signal strength: a measurement simply is not worth its cost below about $115 per condition-month, so the headline price was moved to $200 and the sweep extended, a change recorded in the pre-registration. Second, on the real observed visits an uncertainty-threshold controller beats budget-matched random measurement only slightly and does not beat a plain annual schedule, because closely spaced visits mostly repeat information. A fixed 12-month schedule still clearly beats random spending at the same budget, and the threshold rule shifts monitoring across age groups far more than its small accuracy gain would justify.</p>
   </div>
 </section>
 
@@ -74,63 +120,48 @@
       <p class="eyebrow accent">Approach</p>
       <h2 class="headline">How it was built.</h2>
     </div>
-    <div class="steps"><div class="step reveal"><div class="step-num">01</div><div><h4>Data loading &amp; cleaning</h4><p>Ingest the five raw EHR tables, audit coverage and quality, and standardize them for analysis.</p></div></div>
-<div class="step reveal"><div class="step-num">02</div><div><h4>Patient profiles &amp; multimorbidity EDA</h4><p>Explore patient demographics, condition prevalence, and how chronic conditions cluster and co-occur.</p></div></div>
-<div class="step reveal"><div class="step-num">03</div><div><h4>Feature engineering</h4><p>Build baseline features from dated pre-cutoff events: demographics, baseline conditions, lab history, medication history, and prior hospitalization patterns.</p></div></div>
-<div class="step reveal"><div class="step-num">04</div><div><h4>Baseline models</h4><p>Establish simple, honest reference models for each prediction target before reaching for anything fancier.</p></div></div>
-<div class="step reveal"><div class="step-num">05</div><div><h4>Progression prediction models</h4><p>Train gradient-boosted models (XGBoost, LightGBM) for hospitalization, ICU, readmission, and multimorbidity progression.</p></div></div>
-<div class="step reveal"><div class="step-num">06</div><div><h4>Evaluate, explain &amp; deliver</h4><p>Compare models across multiple metrics, layer SHAP explainability on top, and surface everything in a Streamlit dashboard.</p></div></div></div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div><div><h4>Leakage-aware pipeline</h4><p>Build features only from events on or before the 2021 cutoff, drop all-time diagnosis columns, and enforce it with tests so no target or future information reaches the model matrix.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div><h4>Audit the data</h4><p>Discover that the synthetic generator writes future diagnoses into past medications and lab flags, rebuild a leak-free dataset, and re-run every result on it.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div><h4>Baseline and sequence models</h4><p>Train and calibrate gradient-boosted trees, then GRU and Transformer trajectory models with Monte Carlo dropout uncertainty, comparing them honestly on the leak-free data.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div><h4>Price the measurement</h4><p>Build a cost model from 2026 Medicare lab and office-visit rates, so every monitoring decision has a real dollar price on one side of the trade.</p></div></div>
+      <div class="step reveal"><div class="step-num">05</div><div><h4>Simulate and validate</h4><p>Stand up a patient simulator for the monitoring environment and validate it against the real data with shared metric code, passing 38 of 39 targets.</p></div></div>
+      <div class="step reveal"><div class="step-num">06</div><div><h4>Pre-register, then sweep</h4><p>Write down the sensitivity sweep before running it, then compute exact policy values and a learned fitted-Q policy across signal strengths and prices, with bootstrap intervals over seeds.</p></div></div>
+      <div class="step reveal"><div class="step-num">07</div><div><h4>Report what held up</h4><p>Measure detection delay, cost, and the age-group distribution of monitoring, and write the results as they came out, including the ones that overturned the plan.</p></div></div>
+    </div>
   </div>
 </section>
 
 <section class="section gray">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow accent">Results</p>
-      <h2 class="headline">How it performs.</h2>
-      <p class="lede">Held-out test set of 100,000 synthetic patients. Class imbalance makes some targets far harder than others.</p>
-    </div>
-    <table class="result-table reveal">
-      <thead>
-        <tr><th>Target</th><th>Best model</th><th>ROC-AUC</th><th>Recall</th><th>F1</th></tr>
-      </thead>
-      <tbody>
-        <tr class="highlight"><td>Multimorbidity progression <span class="check">&#10003;</span></td><td>XGBoost</td><td>0.87</td><td>0.87</td><td>0.77</td></tr>
-        <tr><td>Future hospitalization</td><td>XGBoost</td><td>0.69</td><td>0.68</td><td>0.13</td></tr>
-        <tr><td>ICU admission · 30-day readmission</td><td colspan="4">Too rare in this dataset to model reliably (0.1% and 0.7% prevalence)</td></tr>
-      </tbody>
-    </table>
-    <p class="viz-note reveal">All models are scored against a majority-class dummy baseline (ROC-AUC 0.5). Hospitalization affects only 4.5% of patients, so the model trades precision to catch about two-thirds of true cases and roughly doubles the dummy's average precision. SHAP points to prior hospitalization count, age, and Charlson index as the top hospitalization drivers, and to medication and baseline condition counts for progression.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
       <p class="eyebrow accent">At a glance</p>
       <h2 class="headline">Project details.</h2>
     </div>
     <dl class="spec reveal">
-      <div class="spec-row"><dt>Data source</dt><dd>Synthetic EHR data (2018–2024): patients, diagnoses, lab results, medications, outcomes</dd></div>
-<div class="spec-row"><dt>Problem type</dt><dd>Multi-target risk prediction (classification) with progression modeling</dd></div>
-<div class="spec-row"><dt>Prediction targets</dt><dd>Hospitalization · ICU admission · 30-day readmission · multimorbidity progression (2022–2024)</dd></div>
-<div class="spec-row"><dt>Temporal design</dt><dd>Predictors from events on or before Dec 31, 2021; outcomes measured Jan 1, 2022 to Dec 31, 2024</dd></div>
-<div class="spec-row"><dt>Pipeline</dt><dd>Ten ordered notebooks from data loading through EDA, feature engineering, modeling, evaluation, and SHAP explainability</dd></div>
-<div class="spec-row"><dt>Headline result</dt><dd>XGBoost predicts multimorbidity progression with ROC-AUC 0.87 and recall 0.87 on the held-out test set</dd></div>
-<div class="spec-row"><dt>Interface</dt><dd>Streamlit dashboard summarizing the processed dataset, model metrics, and generated figures</dd></div>
-<div class="spec-row"><dt>Status</dt><dd>Core pipeline complete through evaluation and SHAP; next up are probability calibration, survival modeling, and external validation</dd></div>
+      <div class="spec-row"><dt>What it is</dt><dd>A research project on disease-progression prediction that reframes monitoring as a cost-aware sequential decision</dd></div>
+      <div class="spec-row"><dt>Data</dt><dd>Synthetic EHR for 100,000 patients, 2018 to 2024, with a 2021-12-31 cutoff separating predictors from future outcomes; an at-risk cohort of 41,654 for progression</dd></div>
+      <div class="spec-row"><dt>Integrity finding</dt><dd>The dataset generator encodes future diagnoses into pre-cutoff records (pre-cutoff creatinine predicts future kidney disease at AUROC 0.982); the research pipeline rebuilds the data leak-free</dd></div>
+      <div class="spec-row"><dt>Prediction</dt><dd>Leak-free multimorbidity progression at ROC-AUC 0.828 (calibrated XGBoost), with GRU and Transformer sequence models no better than the tree; the rarer hospitalization target around 0.694, used for ranking only</dd></div>
+      <div class="spec-row"><dt>Decision model</dt><dd>A quarterly measure-or-not policy, rewarding against the price of a lab panel (about $140 to $214) versus the cost of an undiagnosed condition-month, discounted at 3% a year</dd></div>
+      <div class="spec-row"><dt>Simulator</dt><dd>A patient simulator for the monitoring environment, validated against the real data on 38 of 39 targets</dd></div>
+      <div class="spec-row"><dt>Evaluation</dt><dd>Exact policy values, fixed and random baselines, a learned fitted-Q policy, a masking study on real visits, bootstrap confidence intervals, and multiple seeds, all pre-registered</dd></div>
+      <div class="spec-row"><dt>Honest headlines</dt><dd>At the planned price, never measuring wins; an uncertainty-threshold schedule beats random but not a plain annual schedule, and skews monitoring by age</dd></div>
+      <div class="spec-row"><dt>Reproducibility</dt><dd>A reusable research package and a 27-file test suite focused on leakage prevention and simulator validity</dd></div>
+      <div class="spec-row"><dt>Status</dt><dd>Active research, developed in PhD coursework; synthetic data only, so no clinical finding transfers to real patients</dd></div>
     </dl>
     <div class="chips reveal" style="margin-top:44px">
       <span class="chip">Python</span>
-<span class="chip">Pandas</span>
-<span class="chip">NumPy</span>
-<span class="chip">Scikit-learn</span>
-<span class="chip">XGBoost</span>
-<span class="chip">LightGBM</span>
-<span class="chip">SHAP</span>
-<span class="chip">Lifelines</span>
-<span class="chip">Streamlit</span>
-<span class="chip">Jupyter</span>
+      <span class="chip">Scikit-learn</span>
+      <span class="chip">XGBoost</span>
+      <span class="chip">LightGBM</span>
+      <span class="chip">PyTorch</span>
+      <span class="chip">SHAP</span>
+      <span class="chip">lifelines</span>
+      <span class="chip">Fitted Q-iteration</span>
+      <span class="chip">Off-policy evaluation</span>
+      <span class="chip">pytest</span>
+      <span class="chip">Streamlit</span>
     </div>
   </div>
 </section>
@@ -138,10 +169,10 @@
 <section class="section gray cta-band">
   <div class="wrap reveal">
     <h2 class="headline">Want the full story?</h2>
-    <p class="lede" style="margin-top:14px">The complete code, notebooks, and documentation are on GitHub.</p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
-
+    <p class="lede" style="margin-top:14px">The research branch holds the simulator, the pre-registration, the evaluation notes, and the full test suite.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction/tree/isem735-research" target="_blank" rel="noopener">Research branch</a>
+      <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">GitHub Repo</a>
     </div>
   </div>
 </section>

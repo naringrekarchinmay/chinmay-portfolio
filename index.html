@@ -16,6 +16,7 @@
     <a class="nav-brand" href="index.html">Chinmay Naringrekar</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     <ul class="nav-links">
+      <li><a href="index.html#apps">Apps</a></li>
       <li><a href="index.html#projects">ML Projects</a></li>
       <li><a href="index.html#dashboards">Dashboards</a></li>
       <li><a href="index.html#skills">Skills</a></li>
@@ -36,14 +37,59 @@
       <a class="btn btn-ghost" href="https://github.com/naringrekarchinmay" target="_blank" rel="noopener">GitHub</a>
     </div>
     <div class="hero-meta reveal in">
-      <div><strong>PhD</strong><span>Information Systems<br>Engineering Management</span></div>
+      <div><strong>PhD</strong><span>Information Systems<br>Engineering Management · In&nbsp;progress</span></div>
       <div><strong>2&times; Masters</strong><span>Information Systems<br>Information Technology</span></div>
       <div><strong>5 yrs </strong><span>Analytics experience<br>New York City · New York</span></div>
     </div>
   </div>
 </section>
 
-<section class="section gray" id="projects">
+<section class="section gray" id="apps">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow accent">Apps &amp; Tools</p>
+      <h2 class="headline">Things I've shipped.</h2>
+      <p class="lede">Full-stack and native builds beyond the notebooks: an AI decision-research agent, a local F1 stewarding pipeline, and a native macOS keyboard app, each one a working application with its own deep-dive page.</p>
+    </div>
+    <div class="tile-grid">
+
+<article class="tile span tint-blindspot reveal">
+  <div class="tile-art" aria-hidden="true">🎯</div>
+  <p class="eyebrow">AI Agents · Decision Research</p>
+  <h3>BlindSpot AI</h3>
+  <p>An AI decision-research agent that recognizes what it does not know. It names the one unknown a decision hinges on, researches it with a Flashpoint synthetic panel, and reports honestly whether the answer changes anything. Built with Claude and schema-checked structured output for the Hack the Unreachable hackathon.</p>
+  <div class="tile-links">
+    <a href="projects/blindspot-ai.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/blindspot-ai" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+
+<article class="tile tint-noted reveal">
+  <div class="tile-art" aria-hidden="true">⚖️</div><span class="badge wip">Work in progress</span>
+  <p class="eyebrow">Local AI · F1 Stewarding</p>
+  <h3>Noted</h3>
+  <p>F1 stewarding, explained. Noted reads every FIA document from a race weekend and answers why a penalty was given and whether it was consistent with precedent, using rule-based parsing, a local model through Ollama with quote checks, and a static notice-board site.</p>
+  <div class="tile-links">
+    <a href="projects/noted-f1-stewarding.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/noted-F1-stewarding" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+
+<article class="tile tint-keylume reveal">
+  <div class="tile-art" aria-hidden="true">⌨️</div>
+  <p class="eyebrow">macOS · Reverse Engineering</p>
+  <h3>Keylume</h3>
+  <p>A native macOS app and CLI for configuring Royal Kludge RK84 keyboards: lighting, per-key RGB, and remapping. The vendor ships only a Windows app, so the protocol was recovered by reverse engineering and rebuilt as byte-exact HID reports, verified on hardware.</p>
+  <div class="tile-links">
+    <a href="projects/keylume.html">Learn more</a>
+    <a href="https://github.com/naringrekarchinmay/keylume" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow accent">Machine Learning</p>
@@ -75,12 +121,12 @@
 
 <article class="tile tint-health  reveal">
   <div class="tile-art" aria-hidden="true">🩺</div><span class="badge wip">Work in progress</span>
-  <p class="eyebrow">Healthcare Analytics</p>
-  <h3>Healthcare ML</h3>
-  <p>Leakage-aware prediction of hospitalization, ICU admission, 30-day readmission, and multimorbidity progression from synthetic EHR data, with SHAP explainability and a Streamlit dashboard.</p>
+  <p class="eyebrow">Healthcare · Decision Research</p>
+  <h3>Disease Progression &amp; Multimorbidity</h3>
+  <p>A PhD research project that starts as leakage-aware progression prediction on synthetic EHR data, catches the dataset generator leaking future diagnoses, and reframes monitoring as a cost-aware decision: when is it actually worth ordering the labs, evaluated on a validated simulator with a pre-registered design.</p>
   <div class="tile-links">
     <a href="projects/disease-progression.html">Learn more</a>
-    <a href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction" target="_blank" rel="noopener">View on GitHub</a>
+    <a href="https://github.com/naringrekarchinmay/Disease-Progression-and-Multi-morbidity-Prediction/tree/isem735-research" target="_blank" rel="noopener">View on GitHub</a>
   </div>
 </article>
 
@@ -131,7 +177,7 @@
   </div>
 </section>
 
-<section class="section" id="dashboards">
+<section class="section gray" id="dashboards">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow accent">Business Intelligence</p>
@@ -209,7 +255,7 @@
   </div>
 </section>
 
-<section class="section gray" id="skills">
+<section class="section" id="skills">
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow accent">Skills</p>
